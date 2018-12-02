@@ -1,10 +1,36 @@
 import 'package:dart_lab/components/application.drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:package_info/package_info.dart';
 
-@immutable
-class AboutPage extends StatelessWidget {
+class AboutPage extends StatefulWidget {
   AboutPage({Key key}) : super(key: key);
+
+  @override
+  AboutPageState createState() => new AboutPageState();
+}
+
+class AboutPageState extends State<AboutPage> {
+
+  PackageInfo _packageInfo = new PackageInfo(
+    appName: '',
+    packageName: '',
+    version: '',
+    buildNumber: '',
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    _initPackageInfo();
+  }
+
+  Future<void> _initPackageInfo() async {
+    final PackageInfo info = await PackageInfo.fromPlatform();
+    setState(() {
+      _packageInfo = info;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +53,8 @@ class AboutPage extends StatelessWidget {
                   radius: 35,
                 ),
                 SizedBox(height: 25),
-                Text('DARTLAB', style: TextStyle(fontSize: 24)),
-                Text('0.0.1 (03-dec-2018)', style: TextStyle(fontSize: 16)),
+                Text(_packageInfo.appName.toUpperCase(), style: TextStyle(fontSize: 24)),
+                Text('${_packageInfo.version} (${_packageInfo.buildNumber})', style: TextStyle(fontSize: 16)),
               ],
             ),
           ),
