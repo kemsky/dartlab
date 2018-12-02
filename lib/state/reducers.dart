@@ -1,5 +1,5 @@
-import 'package:dart_lab/actions.dart';
-import 'package:dart_lab/state.dart';
+import 'package:dart_lab/state/actions.dart';
+import 'package:dart_lab/state/state.dart';
 
 AppState appReducer(AppState previous, dynamic action) {
   switch (action.type) {
