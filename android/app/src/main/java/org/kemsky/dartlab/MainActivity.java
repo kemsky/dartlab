@@ -1,4 +1,4 @@
-package com.example.flutterexample;
+package org.kemsky.dartlab;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
