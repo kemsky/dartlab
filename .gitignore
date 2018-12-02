@@ -13,3 +13,5 @@ build/
 .vscode
 
 **/gradle/**/*.*
+
+**/*.g.dart

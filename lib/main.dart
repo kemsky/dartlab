@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_example/webapi/users.dart';
+import 'package:dart_lab/webapi/api.configuration.dart';
+import 'package:dart_lab/webapi/users.dart';
 import 'package:logging/logging.dart';
 
 void main() {
@@ -65,10 +66,10 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
 
-      final response = new Users().getCurrentUser();
+      final response = new Users(new Configuration()).getCurrentUser();
 
       response.then((user) {
-        logger.info('success ${user.name}');
+        logger.info('success ${user.last_sign_in_at}');
       });
     });
   }

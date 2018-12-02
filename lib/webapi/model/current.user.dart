@@ -1,7 +1,7 @@
-import 'package:flutter_example/model/identity.dart';
+import 'package:dart_lab/webapi/model/identity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'package:flutter_example/model/current.user.g.dart';
+part 'package:dart_lab/webapi/model/current.user.g.dart';
 
 @JsonSerializable(nullable: false)
 class CurrentUser {

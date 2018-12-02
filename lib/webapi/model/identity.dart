@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'package:flutter_example/model/identity.g.dart';
+part 'package:dart_lab/webapi/model/identity.g.dart';
 
 @JsonSerializable(nullable: false)
 class Identity {
