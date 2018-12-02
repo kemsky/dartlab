@@ -1,7 +1,6 @@
 import 'package:dart_lab/components/application.drawer.dart';
 import 'package:dart_lab/state/actions.dart';
 import 'package:dart_lab/state/state.dart';
-import 'package:dart_lab/webapi/model/current.user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
@@ -18,11 +17,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      drawer: new StoreConnector<AppState, CurrentUser>(
-          converter: (store) => store.state.currentUser,
-          builder: (context, state) {
-            return createDrawer(state);
-          }),
+      drawer: applicationDrawer(),
       appBar: new AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
