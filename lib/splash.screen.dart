@@ -7,11 +7,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  startTime() async {
-    var _duration = new Duration(seconds: 2);
-    return new Timer(_duration, navigationPage);
-  }
-
   void navigationPage() {
     Navigator.of(context).pushReplacementNamed('/HomeScreen');
   }
@@ -19,14 +14,14 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    startTime();
+    new Timer(new Duration(seconds: 2), navigationPage);
   }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       body: new Center(
-        child: new Text('DartLab', style: new TextStyle(fontSize: 24))
+        child: new Text('D A R T L A B', style: new TextStyle(fontSize: 36, fontWeight: FontWeight.bold))
       ),
     );
   }
