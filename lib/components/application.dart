@@ -1,3 +1,4 @@
+import 'package:dart_lab/components/about.page.dart';
 import 'package:dart_lab/components/home.page.dart';
 import 'package:dart_lab/components/splash.screen.dart';
 import 'package:dart_lab/state/state.dart';
@@ -30,7 +31,8 @@ class Application extends StatelessWidget {
             ),
             home: new SplashScreen(),
             routes: <String, WidgetBuilder>{
-              '/HomeScreen': (BuildContext context) => new HomePage(title: title)
+              '/HomePage': (BuildContext context) => new HomePage(title: title),
+              '/AboutPage': (BuildContext context) => new AboutPage()
             },
           );
         });

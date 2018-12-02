@@ -45,8 +45,7 @@ StoreConnector<AppState, CurrentUser> applicationDrawer() {
                 title: Text('Activity',
                     style: TextStyle(fontWeight: FontWeight.bold)),
                 onTap: () {
-                  // Update the state of the app
-                  // ...
+                  Navigator.of(context).pushReplacementNamed('/HomePage');
                 },
               ),
               ListTile(
@@ -64,8 +63,7 @@ StoreConnector<AppState, CurrentUser> applicationDrawer() {
                 title: Text('About',
                     style: TextStyle(fontWeight: FontWeight.bold)),
                 onTap: () {
-                  // Update the state of the app
-                  // ...
+                  Navigator.of(context).pushReplacementNamed('/AboutPage');
                 },
               ),
             ],
