@@ -1,4 +1,5 @@
 import 'package:dart_lab/home.page.dart';
+import 'package:dart_lab/splash.screen.dart';
 import 'package:dart_lab/state/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -27,7 +28,10 @@ class Application extends StatelessWidget {
             theme: new ThemeData(
               primarySwatch: Colors.deepPurple,
             ),
-            home: new HomePage(title: title),
+            home: new SplashScreen(),
+            routes: <String, WidgetBuilder>{
+              '/HomeScreen': (BuildContext context) => new HomePage(title: title)
+            },
           );
         });
   }
