@@ -15,24 +15,44 @@ StoreConnector<AppState, CurrentUser> applicationDrawer() {
             // Important: Remove any padding from the ListView.
             padding: EdgeInsets.zero,
             children: <Widget>[
-              new UserAccountsDrawerHeader(
-                currentAccountPicture: new CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: 50,
-                  backgroundImage: NetworkImage(state?.avatar_url ?? ''),
-                ),
-                  accountName: Text(state?.name ?? '', style: TextStyle(color: Colors.white)),
-                  accountEmail: Text(state?.email ?? '', style: TextStyle(color: Colors.white))
+              Stack(
+                children: <Widget>[
+                  new UserAccountsDrawerHeader(
+                    currentAccountPicture: new CircleAvatar(
+                      backgroundColor: Colors.white,
+                      radius: 50,
+                      backgroundImage: NetworkImage(state?.avatar_url ?? ''),
+                    ),
+                    accountName: Text(state?.name ?? '',
+                        style: TextStyle(color: Colors.white)),
+                    accountEmail: Text(state?.email ?? '',
+                        style: TextStyle(color: Colors.white)),
+                  ),
+                  new Align(
+                    alignment: Alignment.topRight,
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 16),
+                        child: IconButton(
+                        icon: Icon(Icons.exit_to_app),
+                        color: Colors.white,
+                        onPressed: () {}
+                        )),
+                  )
+                ],
               ),
               ListTile(
-                title: Text('Activity', style: TextStyle(fontWeight: FontWeight.bold)),
+                leading: const Icon(Icons.assessment, color: Colors.black),
+                title: Text('Activity',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
                 onTap: () {
                   // Update the state of the app
                   // ...
                 },
               ),
               ListTile(
-                title: Text('Projects', style: TextStyle(fontWeight: FontWeight.bold)),
+                leading: const Icon(Icons.format_list_bulleted, color: Colors.black),
+                title: Text('Projects',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
                 onTap: () {
                   // Update the state of the app
                   // ...
@@ -40,7 +60,9 @@ StoreConnector<AppState, CurrentUser> applicationDrawer() {
               ),
               Divider(),
               ListTile(
-                title: Text('About', style: TextStyle(fontWeight: FontWeight.bold)),
+                leading: const Icon(Icons.info, color: Colors.black),
+                title: Text('About',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
                 onTap: () {
                   // Update the state of the app
                   // ...
