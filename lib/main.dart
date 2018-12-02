@@ -6,6 +6,8 @@ import 'package:logging/logging.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 
+//todo: Add Error Reporting https://flutter.io/docs/cookbook/maintenance/error-reporting
+
 void main() {
   //configure Logger package
   Logger.root.level = Level.ALL;

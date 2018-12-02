@@ -17,7 +17,7 @@ class AppState {
 final Logger logger = new Logger('loggingMiddleware');
 
 loggingMiddleware(Store<AppState> store, dynamic action, NextDispatcher next) {
-  logger.info('${new DateTime.now()}: $action');
+  logger.info(action.toString());
 
   next(action);
 }
