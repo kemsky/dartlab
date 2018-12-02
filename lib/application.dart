@@ -12,21 +12,23 @@ class ApplicationStoreProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new StoreProvider<AppState>(
-        store: this.store,
-        child: new Application()
-    );
+        store: this.store, child: new Application());
   }
 }
 
 class Application extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: 'DartLab',
-      theme: new ThemeData(
-        primarySwatch: Colors.deepPurple,
-      ),
-      home: new HomePage(title: 'DartLab'),
-    );
+    return new StoreConnector<AppState, String>(
+        converter: (store) => store.state.title,
+        builder: (context, title) {
+          return new MaterialApp(
+            title: 'DartLab',
+            theme: new ThemeData(
+              primarySwatch: Colors.deepPurple,
+            ),
+            home: new HomePage(title: title),
+          );
+        });
   }
 }

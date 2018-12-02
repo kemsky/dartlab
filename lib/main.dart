@@ -16,7 +16,7 @@ void main() {
   //create store
   final store = new Store<AppState>(
       appReducer,
-      initialState: new AppState(0, null),
+      initialState: new AppState(0, null, 'DartLab'),
       middleware: [loggingMiddleware, thunkMiddleware]
   );
 

@@ -5,11 +5,13 @@ import 'package:redux/redux.dart';
 class AppState {
   int _counter;
   CurrentUser _currentUser;
+  String _title;
 
   int get counter => _counter;
   CurrentUser get currentUser => _currentUser;
+  String get title => _title;
 
-  AppState(this._counter, this._currentUser);
+  AppState(this._counter, this._currentUser, this._title);
 }
 
 final Logger logger = new Logger('loggingMiddleware');
