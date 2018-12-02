@@ -48,4 +48,11 @@ class CurrentUser {
   factory CurrentUser.fromJson(Map<String, dynamic> json) => _$CurrentUserFromJson(json);
 
   Map<String, dynamic> toJson() => _$CurrentUserToJson(this);
+
+  @override
+  String toString() {
+    return 'CurrentUser{id: $id, username: $username, email: $email, name: $name, state: $state, avatar_url: $avatar_url, web_url: $web_url, created_at: $created_at, is_admin: $is_admin, bio: $bio, location: $location, public_email: $public_email, skype: $skype, linkedin: $linkedin, twitter: $twitter, website_url: $website_url, organization: $organization, last_sign_in_at: $last_sign_in_at, confirmed_at: $confirmed_at, theme_id: $theme_id, last_activity_on: $last_activity_on, color_scheme_id: $color_scheme_id, projects_limit: $projects_limit, current_sign_in_at: $current_sign_in_at, identities: $identities, can_create_group: $can_create_group, can_create_project: $can_create_project, two_factor_enabled: $two_factor_enabled, external: $external, private_profile: $private_profile}';
+  }
+
+
 }

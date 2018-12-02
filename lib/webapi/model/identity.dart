@@ -12,4 +12,9 @@ class Identity {
   factory Identity.fromJson(Map<String, dynamic> json) => _$IdentityFromJson(json);
 
   Map<String, dynamic> toJson() => _$IdentityToJson(this);
+
+  @override
+  String toString() {
+    return 'Identity{provider: $provider, extern_uid: $extern_uid}';
+  }
 }

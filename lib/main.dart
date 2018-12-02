@@ -2,10 +2,9 @@ import 'package:dart_lab/actions.dart';
 import 'package:dart_lab/state.dart';
 import 'package:dart_lab/reducers.dart';
 import 'package:flutter/material.dart';
-import 'package:dart_lab/webapi/api.configuration.dart';
-import 'package:dart_lab/webapi/users.dart';
 import 'package:logging/logging.dart';
 import 'package:redux/redux.dart';
+import 'package:redux_thunk/redux_thunk.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 void main() {
@@ -16,8 +15,8 @@ void main() {
 
   final store = new Store<AppState>(
       appReducer,
-      initialState: new AppState(0),
-      middleware: [loggingMiddleware]
+      initialState: new AppState(0, null),
+      middleware: [loggingMiddleware, thunkMiddleware]
   );
 
   runApp(new DartLabApp(store));
@@ -51,13 +50,7 @@ class HomePage extends StatelessWidget  {
   HomePage({Key key, this.title}) : super(key: key);
 
   void onButtonPress(BuildContext context) {
-//      final response = new Users(new Configuration()).getCurrentUser();
-//
-//      response.then((user) {
-//        logger.info('success ${user.last_sign_in_at}');
-//      });
-
-      StoreProvider.of<AppState>(context).dispatch(new IncrementAction());
+    StoreProvider.of<AppState>(context).dispatch(getCurrentUserAction);
   }
 
   @override
