@@ -1,5 +1,6 @@
 import 'package:dart_lab/components/application.drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 @immutable
 class AboutPage extends StatelessWidget {
@@ -54,7 +55,8 @@ class AboutPage extends StatelessWidget {
           ),
           ListTile(
             leading: CircleAvatar(
-              child: Icon(Icons.account_circle),
+              backgroundColor: Colors.white,
+              backgroundImage: NetworkImage('https://avatars1.githubusercontent.com/u/3826972?s=60&v=4'),
               radius: 25,
             ),
             title: Column(
@@ -64,7 +66,9 @@ class AboutPage extends StatelessWidget {
               Text('Alexander Turtsevich', style: TextStyle(fontWeight: FontWeight.bold)),
               Text('main developer', style: TextStyle())
             ]),
-            onTap: () {},
+            onTap: () {
+              launch('https://github.com/kemsky/');
+            },
           )
         ],
       ),
