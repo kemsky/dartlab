@@ -8,7 +8,7 @@ AppState appReducer(AppState previous, dynamic action) {
     case Actions.DECREMENT:
       return new AppState(previous.counter - 1, previous.currentUser);
     case Actions.SET_CURRENT_USER:
-      return new AppState(previous.counter, action.payload);
+      return new AppState(previous.counter + 1, action.payload);
     default:
       return previous;
   }

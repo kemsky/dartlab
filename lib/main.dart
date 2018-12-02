@@ -21,5 +21,5 @@ void main() {
   );
 
   //start application
-  runApp(new Application(store));
+  runApp(new ApplicationStoreProvider(store));
 }

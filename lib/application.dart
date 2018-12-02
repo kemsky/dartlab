@@ -4,22 +4,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
-class Application extends StatelessWidget {
+class ApplicationStoreProvider extends StatelessWidget {
   final Store<AppState> store;
 
-  Application(this.store);
+  ApplicationStoreProvider(this.store);
 
   @override
   Widget build(BuildContext context) {
     return new StoreProvider<AppState>(
         store: this.store,
-        child: new MaterialApp(
-          title: 'DartLab',
-          theme: new ThemeData(
-            primarySwatch: Colors.deepPurple,
-          ),
-          home: new HomePage(title: 'DartLab'),
-        )
+        child: new Application()
+    );
+  }
+}
+
+class Application extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+      title: 'DartLab',
+      theme: new ThemeData(
+        primarySwatch: Colors.deepPurple,
+      ),
+      home: new HomePage(title: 'DartLab'),
     );
   }
 }
