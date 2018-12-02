@@ -1,5 +1,5 @@
-import 'package:dart_lab/home.page.dart';
-import 'package:dart_lab/splash.screen.dart';
+import 'package:dart_lab/components/home.page.dart';
+import 'package:dart_lab/components/splash.screen.dart';
 import 'package:dart_lab/state/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';

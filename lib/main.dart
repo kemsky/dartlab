@@ -1,4 +1,4 @@
-import 'package:dart_lab/application.dart';
+import 'package:dart_lab/components/application.dart';
 import 'package:dart_lab/state/reducers.dart';
 import 'package:dart_lab/state/state.dart';
 import 'package:flutter/material.dart';
