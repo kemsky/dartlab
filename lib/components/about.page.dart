@@ -1,36 +1,13 @@
 import 'package:dart_lab/components/application.drawer.dart';
+import 'package:dart_lab/state/state.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:package_info/package_info.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class AboutPage extends StatefulWidget {
+@immutable
+class AboutPage extends StatelessWidget {
   AboutPage({Key key}) : super(key: key);
-
-  @override
-  AboutPageState createState() => new AboutPageState();
-}
-
-class AboutPageState extends State<AboutPage> {
-
-  PackageInfo _packageInfo = new PackageInfo(
-    appName: '',
-    packageName: '',
-    version: '',
-    buildNumber: '',
-  );
-
-  @override
-  void initState() {
-    super.initState();
-    _initPackageInfo();
-  }
-
-  Future<void> _initPackageInfo() async {
-    final PackageInfo info = await PackageInfo.fromPlatform();
-    setState(() {
-      _packageInfo = info;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,18 +22,22 @@ class AboutPageState extends State<AboutPage> {
           Container(
             height: 250,
             decoration: const BoxDecoration(color: Color.fromARGB(255, 240, 240, 240)),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                CircleAvatar(
-                  child: Icon(Icons.account_circle),
-                  radius: 35,
-                ),
-                SizedBox(height: 25),
-                Text(_packageInfo.appName.toUpperCase(), style: TextStyle(fontSize: 24)),
-                Text('${_packageInfo.version} (${_packageInfo.buildNumber})', style: TextStyle(fontSize: 16)),
-              ],
-            ),
+            child: new StoreConnector<AppState, PackageInfo>(
+                converter: (store) => store.state.packageInfo,
+                builder: (context, packageInfo) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      CircleAvatar(
+                        child: Icon(Icons.account_circle),
+                        radius: 35,
+                      ),
+                      SizedBox(height: 25),
+                      Text(packageInfo.appName.toUpperCase(), style: TextStyle(fontSize: 24)),
+                      Text('${packageInfo.version} (${packageInfo.buildNumber})', style: TextStyle(fontSize: 16)),
+                    ],
+                  );
+                }),
           ),
           ListTile(
             title: Text('Info', style: TextStyle(fontWeight: FontWeight.bold)),
@@ -89,9 +70,9 @@ class AboutPageState extends State<AboutPage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-              Text('Alexander Turtsevich', style: TextStyle(fontWeight: FontWeight.bold)),
-              Text('main developer', style: TextStyle())
-            ]),
+                  Text('Alexander Turtsevich', style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text('main developer', style: TextStyle())
+                ]),
             onTap: () {
               launch('https://github.com/kemsky/');
             },

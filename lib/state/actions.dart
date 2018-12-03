@@ -1,6 +1,7 @@
 import 'package:dart_lab/state/state.dart';
 import 'package:dart_lab/webapi/model/current.user.dart';
 import 'package:logging/logging.dart';
+import 'package:package_info/package_info.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 import 'package:dart_lab/webapi/api.configuration.dart';
@@ -10,6 +11,7 @@ enum Actions {
   INCREMENT,
   DECREMENT,
   SET_CURRENT_USER,
+  SET_PACKAGE_INFO,
 }
 
 abstract class Action<T, P> {
@@ -37,6 +39,11 @@ class SetCurrentUserAction extends Action<Actions, CurrentUser> {
       : super(Actions.SET_CURRENT_USER, payload: payload);
 }
 
+class SetPackageInfoAction extends Action<Actions, PackageInfo> {
+  SetPackageInfoAction(PackageInfo payload)
+      : super(Actions.SET_PACKAGE_INFO, payload: payload);
+}
+
 ThunkAction<AppState> getCurrentUserAction = (Store<AppState> store) async {
   final Logger logger = new Logger('getCurrentUserAction');
 
@@ -48,4 +55,10 @@ ThunkAction<AppState> getCurrentUserAction = (Store<AppState> store) async {
   });
 
   store.dispatch(new SetCurrentUserAction(user));
+};
+
+ThunkAction<AppState> loadPackageInfoAction = (Store<AppState> store) async {
+  final PackageInfo info = await PackageInfo.fromPlatform();
+
+  store.dispatch(new SetPackageInfoAction(info));
 };

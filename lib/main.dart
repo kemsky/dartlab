@@ -1,8 +1,10 @@
 import 'package:dart_lab/components/application.dart';
+import 'package:dart_lab/state/actions.dart';
 import 'package:dart_lab/state/reducers.dart';
 import 'package:dart_lab/state/state.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
+import 'package:package_info/package_info.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 
@@ -18,10 +20,12 @@ void main() {
   //create store
   final store = new Store<AppState>(
       appReducer,
-      initialState: new AppState(0, null, 'DartLab'),
+      initialState: new AppState(0, null, 'DartLab', new PackageInfo(appName: '', version: '', buildNumber: '', packageName: '')),
       middleware: [loggingMiddleware, thunkMiddleware]
   );
 
   //start application
   runApp(new ApplicationStoreProvider(store));
+
+  store.dispatch(loadPackageInfoAction);
 }
