@@ -1,6 +1,6 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:dart_lab/webapi/model/current.user.dart';
+import 'package:dart_lab/webapi/model/current_user.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info/package_info.dart';
 import 'package:redux/redux.dart';

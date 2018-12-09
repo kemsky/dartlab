@@ -2,8 +2,9 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dart_lab/webapi/model/identity.dart';
+import 'package:dart_lab/webapi/model/user_status.dart';
 
-part 'current.user.g.dart';
+part 'current_user.g.dart';
 
 abstract class CurrentUser implements Built<CurrentUser, CurrentUserBuilder> {
   static Serializer<CurrentUser> get serializer => _$currentUserSerializer;
@@ -12,7 +13,7 @@ abstract class CurrentUser implements Built<CurrentUser, CurrentUserBuilder> {
   String get username;
   String get email;
   String get name;
-  String get state;
+  UserStatus get state;
   String get avatar_url;
   String get web_url;
   DateTime get created_at;

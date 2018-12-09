@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:dart_lab/webapi/model/current.user.dart';
+import 'package:dart_lab/webapi/model/current_user.dart';
 import 'package:dart_lab/webapi/api.class.dart';
 import 'package:dart_lab/webapi/api.configuration.dart';
 import 'package:dart_lab/webapi/model/model_serializers.dart';

@@ -1,5 +1,5 @@
 import 'package:dart_lab/state/state.dart';
-import 'package:dart_lab/webapi/model/current.user.dart';
+import 'package:dart_lab/webapi/model/current_user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
