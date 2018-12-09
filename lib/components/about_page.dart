@@ -2,7 +2,6 @@ import 'package:dart_lab/components/application_drawer.dart';
 import 'package:dart_lab/state/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 @immutable
@@ -22,8 +21,8 @@ class AboutPage extends StatelessWidget {
           Container(
             height: 250,
             decoration: const BoxDecoration(color: Color.fromARGB(255, 240, 240, 240)),
-            child: new StoreConnector<AppState, PackageInfo>(
-                converter: (store) => store.state.packageInfo,
+            child: new StoreConnector<AppState, AboutPageView>(
+                converter: (store) => store.state.getAboutPage(),
                 builder: (context, packageInfo) {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
