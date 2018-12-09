@@ -1,4 +1,6 @@
 import 'package:dart_lab/components/application.dart';
+import 'package:dart_lab/database/database_client.dart';
+import 'package:dart_lab/database/database_manager.dart';
 import 'package:dart_lab/state/actions.dart';
 import 'package:dart_lab/state/reducers.dart';
 import 'package:dart_lab/state/state.dart';
@@ -28,4 +30,12 @@ void main() {
   runApp(ApplicationStoreProvider(store));
 
   store.dispatch(loadPackageInfoAction);
+
+  var databaseClient = DatabaseClient(DatabaseService());
+
+  var s1 = databaseClient.transaction((tx) {
+    return tx.select('select * from Test');
+  }).listen((data) {
+    print('tx data $data');
+  }, onDone: () => logger.info('tx done'), onError: (_) => logger.info('tx error'));
 }

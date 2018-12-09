@@ -20,6 +20,8 @@ dependencies:
   package_info: 0.3.2
   rxdart: 0.19.0
   built_value: 6.1.6
+  sqflite: 0.13.0
+  tuple: 1.0.2
 
 dev_dependencies:
   flutter_test:
