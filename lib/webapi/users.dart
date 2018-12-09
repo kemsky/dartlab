@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:dart_lab/webapi/model/current.user.dart';
 import 'package:dart_lab/webapi/api.class.dart';
 import 'package:dart_lab/webapi/api.configuration.dart';
-import 'package:dart_lab/webapi/model/serializers.dart';
+import 'package:dart_lab/webapi/model/model_serializers.dart';
 import 'package:http/http.dart' as http;
 import 'package:rxdart/rxdart.dart';
 
@@ -15,6 +15,6 @@ class Users extends ApiClass {
         .doOnData((response) {
           print(response.body);
         })
-        .map((response) => serializers.deserializeWith(CurrentUser.serializer, json.decode(response.body)));
+        .map((response) => model_serializers.deserializeWith(CurrentUser.serializer, json.decode(response.body)));
   }
 }
