@@ -14,7 +14,30 @@ class AppState {
   String get title => _title;
   PackageInfo get packageInfo => _packageInfo;
 
-  AppState(this._counter, this._currentUser, this._title, this._packageInfo);
+  AppState({int counter, CurrentUser currentUser, String title, PackageInfo packageInfo}){
+    this._counter = counter;
+    this._currentUser = currentUser;
+    this._title = title;
+    this._packageInfo = packageInfo;
+  }
+
+  factory AppState.initial()
+  {
+    return AppState(
+      counter: 0,
+      title: 'DartLab',
+      packageInfo: new PackageInfo(appName: '', version: '', buildNumber: '', packageName: ''),
+    );
+  }
+
+  AppState clone({int counter, CurrentUser currentUser, String title, PackageInfo packageInfo}) {
+    return AppState(
+      counter: counter ?? this.counter,
+      currentUser: currentUser ?? this.currentUser,
+      title: title ?? this.title,
+      packageInfo: packageInfo ?? this.packageInfo,
+    );
+  }
 }
 
 final Logger logger = new Logger('loggingMiddleware');

@@ -18,14 +18,14 @@ void main() {
   });
 
   //create store
-  final store = new Store<AppState>(
+  final store = Store<AppState>(
       appReducer,
-      initialState: new AppState(0, null, 'DartLab', new PackageInfo(appName: '', version: '', buildNumber: '', packageName: '')),
+      initialState: AppState.initial(),
       middleware: [loggingMiddleware, thunkMiddleware]
   );
 
   //start application
-  runApp(new ApplicationStoreProvider(store));
+  runApp(ApplicationStoreProvider(store));
 
   store.dispatch(loadPackageInfoAction);
 }

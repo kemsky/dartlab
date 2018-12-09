@@ -4,13 +4,13 @@ import 'package:dart_lab/state/state.dart';
 AppState appReducer(AppState previous, dynamic action) {
   switch (action.type) {
     case Actions.INCREMENT:
-      return new AppState(previous.counter + 1, previous.currentUser, previous.title, previous.packageInfo);
+      return previous.clone(counter: previous.counter + 1);
     case Actions.DECREMENT:
-      return new AppState(previous.counter - 1, previous.currentUser, previous.title, previous.packageInfo);
+      return previous.clone(counter: previous.counter - 1);
     case Actions.SET_CURRENT_USER:
-      return new AppState(previous.counter + 1, action.payload, previous.title, previous.packageInfo);
+      return previous.clone(counter: previous.counter + 1, currentUser: action.payload);
     case Actions.SET_PACKAGE_INFO:
-      return new AppState(previous.counter + 1, previous.currentUser, previous.title, action.payload);
+      return previous.clone(counter: previous.counter + 1, packageInfo: action.payload);
     default:
       return previous;
   }
