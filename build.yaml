@@ -1,7 +1,10 @@
 targets:
   $default:
     builders:
+      built_value_generator|built_value:
+        enabled: true
       json_serializable:
+        enabled: false
         options:
           # Options configure how source code is generated for every
           # `@JsonSerializable`-annotated class in the package.

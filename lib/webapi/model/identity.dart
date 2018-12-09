@@ -1,20 +1,15 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
 
-part 'package:dart_lab/webapi/model/identity.g.dart';
+part 'identity.g.dart';
 
-@JsonSerializable(nullable: false)
-class Identity {
-  final String provider;
-  final String extern_uid;
+abstract class Identity implements Built<Identity, IdentityBuilder> {
+  static Serializer<Identity> get serializer => _$identitySerializer;
 
-  Identity(this.provider, this.extern_uid);
+  String get provider;
+  String get extern_uid;
 
-  factory Identity.fromJson(Map<String, dynamic> json) => _$IdentityFromJson(json);
+  Identity._();
 
-  Map<String, dynamic> toJson() => _$IdentityToJson(this);
-
-  @override
-  String toString() {
-    return 'Identity{provider: $provider, extern_uid: $extern_uid}';
-  }
+  factory Identity([updates(IdentityBuilder b)]) =_$Identity;
 }
