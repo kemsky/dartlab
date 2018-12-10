@@ -3,13 +3,14 @@ library database_client;
 import 'package:dart_lab/database/database_manager.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:sqflite/src/sqflite_impl.dart';
 
 class DatabaseClient {
   final DatabaseService _service;
 
   DatabaseClient(this._service);
 
-  Observable<List<Map>> select(String query, [List<dynamic> arguments]) {
+  Observable<List<Map<String, dynamic>>> select(String query, [List<dynamic> arguments]) {
     return this._service.database.flatMap((db) {
       return Observable.fromFuture(db.rawQuery(query, arguments));
     });

@@ -1,6 +1,7 @@
 import 'package:dart_lab/components/application.dart';
 import 'package:dart_lab/database/database_client.dart';
 import 'package:dart_lab/database/database_manager.dart';
+import 'package:dart_lab/database/user_repository.dart';
 import 'package:dart_lab/state/actions.dart';
 import 'package:dart_lab/state/reducers.dart';
 import 'package:dart_lab/state/state.dart';
@@ -20,11 +21,7 @@ void main() {
   });
 
   //create store
-  final store = Store<AppState>(
-      appReducer,
-      initialState: AppState.initial(),
-      middleware: [loggingMiddleware, thunkMiddleware]
-  );
+  final store = Store<AppState>(appReducer, initialState: AppState.initial(), middleware: [loggingMiddleware, thunkMiddleware]);
 
   //start application
   runApp(ApplicationStoreProvider(store));
@@ -33,9 +30,19 @@ void main() {
 
   var databaseClient = DatabaseClient(DatabaseService());
 
-  var s1 = databaseClient.transaction((tx) {
-    return tx.select('select * from Test');
-  }).listen((data) {
+  databaseClient.update("INSERT INTO Test(name, value, num) VALUES(?, ?, ?)", ['another name', 12345678, 3.1416]).listen((data) {
+    print('insert data $data');
+  }, onError: (e) {
+    logger.info('insert error', e);
+  }, onDone: () {
+    logger.info('insert done');
+  });
+
+  UserRepository(databaseClient).getUser().listen((data) {
     print('tx data $data');
-  }, onDone: () => logger.info('tx done'), onError: (_) => logger.info('tx error'));
+  }, onDone: () {
+    logger.info('tx done');
+  }, onError: (e) {
+    logger.info('tx error', e);
+  });
 }
