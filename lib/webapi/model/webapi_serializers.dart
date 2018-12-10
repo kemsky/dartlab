@@ -6,7 +6,7 @@ import 'package:dart_lab/webapi/model/current_user.dart';
 import 'package:dart_lab/webapi/model/identity.dart';
 import 'package:dart_lab/webapi/model/user_status.dart';
 
-part 'model_serializers.g.dart';
+part 'webapi_serializers.g.dart';
 
 @SerializersFor(const [
   CurrentUser

@@ -1,13 +1,10 @@
 library database_manager;
 
-import 'dart:async';
-
 import 'package:logging/logging.dart';
 import 'package:path/path.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sqflite/sqflite.dart';
-
-part 'database_migrations.dart';
+import 'package:dart_lab/database/database_migrations.dart';
 
 abstract class DatabaseService {
   static DatabaseService _instance;
@@ -81,7 +78,7 @@ class _DatabaseService implements DatabaseService {
 
   Observable<Database> open(String path) {
     this.logger.info('Open database `$path`, version: ${this.databaseVersion}');
-    var future = openDatabase(path, version: this.databaseVersion, onCreate: _onCreate);
+    var future = openDatabase(path, version: this.databaseVersion, onCreate: applyMigrations);
     return Observable.fromFuture(future).doOnData((_) => this.logger.info('Open database success.'));
   }
 

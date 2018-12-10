@@ -3,14 +3,13 @@ library database_client;
 import 'package:dart_lab/database/database_manager.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:sqflite/src/sqflite_impl.dart';
 
 class DatabaseClient {
   final DatabaseService _service;
 
   DatabaseClient(this._service);
 
-  Observable<List<Map<String, dynamic>>> select(String query, [List<dynamic> arguments]) {
+  Observable<List<Map<String, dynamic>>> query(String query, [List<dynamic> arguments]) {
     return this._service.database.flatMap((db) {
       return Observable.fromFuture(db.rawQuery(query, arguments));
     });
@@ -24,7 +23,15 @@ class DatabaseClient {
 
   Observable<int> count(String query, [List<dynamic> arguments]) {
     return this._service.database.flatMap((db) {
-      return Observable.fromFuture(db.rawQuery(query, arguments)).map((list) => Sqflite.firstIntValue(list));
+      return Observable.fromFuture(db.rawQuery(query, arguments)).map((list) {
+        return Sqflite.firstIntValue(list) ?? 0;
+      });
+    });
+  }
+
+  Observable<int> insert(String query, [List<dynamic> arguments]) {
+    return this._service.database.flatMap((db) {
+      return Observable.fromFuture(db.rawInsert(query, arguments));
     });
   }
 
@@ -45,7 +52,7 @@ class DatabaseTransaction {
     _tx = Observable.just(tx);
   }
 
-  Observable<List<Map>> select(String query, [List<dynamic> arguments]) {
+  Observable<List<Map>> query(String query, [List<dynamic> arguments]) {
     return this._tx.flatMap((db) {
       return Observable.fromFuture(db.rawQuery(query, arguments));
     });
@@ -59,7 +66,15 @@ class DatabaseTransaction {
 
   Observable<int> count(String query, [List<dynamic> arguments]) {
     return this._tx.flatMap((db) {
-      return Observable.fromFuture(db.rawQuery(query, arguments)).map((list) => Sqflite.firstIntValue(list));
+      return Observable.fromFuture(db.rawQuery(query, arguments)).map((list) {
+        return Sqflite.firstIntValue(list) ?? 0;
+      });
+    });
+  }
+
+  Observable<int> insert(String query, [List<dynamic> arguments]) {
+    return this._tx.flatMap((db) {
+      return Observable.fromFuture(db.rawInsert(query, arguments));
     });
   }
 }

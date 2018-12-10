@@ -5,7 +5,7 @@ import 'package:built_value/src/built_map_serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
 import 'package:dart_lab/database/model/user.dart';
 
-part 'model_serializers.g.dart';
+part 'database_serializers.g.dart';
 
 @SerializersFor(const [
   User

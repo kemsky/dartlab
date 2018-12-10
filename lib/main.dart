@@ -1,6 +1,7 @@
 import 'package:dart_lab/components/application.dart';
 import 'package:dart_lab/database/database_client.dart';
 import 'package:dart_lab/database/database_manager.dart';
+import 'package:dart_lab/database/model/user.dart';
 import 'package:dart_lab/database/user_repository.dart';
 import 'package:dart_lab/state/actions.dart';
 import 'package:dart_lab/state/reducers.dart';
@@ -30,7 +31,11 @@ void main() {
 
   var databaseClient = DatabaseClient(DatabaseService());
 
-  databaseClient.update("INSERT INTO Test(name, value, num) VALUES(?, ?, ?)", ['another name', 12345678, 3.1416]).listen((data) {
+  UserRepository(databaseClient).save(User((b) {
+    return b
+      ..token = 'token'
+      ..url = 'https://gitlab.com';
+  })).listen((data) {
     print('insert data $data');
   }, onError: (e) {
     logger.info('insert error', e);
@@ -38,7 +43,7 @@ void main() {
     logger.info('insert done');
   });
 
-  UserRepository(databaseClient).getUser().listen((data) {
+  UserRepository(databaseClient).load().listen((data) {
     print('tx data $data');
   }, onDone: () {
     logger.info('tx done');
