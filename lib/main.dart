@@ -3,13 +3,13 @@ import 'package:dart_lab/database/database_client.dart';
 import 'package:dart_lab/database/database_manager.dart';
 import 'package:dart_lab/database/model/user.dart';
 import 'package:dart_lab/database/user_repository.dart';
+import 'package:dart_lab/middleware/middleware.dart';
 import 'package:dart_lab/state/actions.dart';
 import 'package:dart_lab/state/reducers.dart';
 import 'package:dart_lab/state/state.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:redux/redux.dart';
-import 'package:redux_thunk/redux_thunk.dart';
 import 'main.reflectable.dart';
 
 //todo: Add Error Reporting https://flutter.io/docs/cookbook/maintenance/error-reporting
@@ -24,7 +24,10 @@ void main() {
   initializeReflectable();
 
   //create store
-  final store = Store<AppState>(appReducer, initialState: AppState.initial(), middleware: [loggingMiddleware, thunkMiddleware]);
+  final store = Store<AppState>(
+      appReducer,
+      initialState: AppState.initial(),
+      middleware: createAppStateMiddleware());
 
   //start application
   runApp(ApplicationStoreProvider(store));

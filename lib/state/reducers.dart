@@ -4,7 +4,7 @@ import 'package:dart_lab/state/state.dart';
 AppState appReducer(AppState previous, dynamic action) {
   if (action is SetRouteAction) {
     return previous.rebuild((builder) {
-      previous.navigatorState.pushReplacementNamed(action.payload);
+      builder.route = action.payload;
     });
   } else if (action is SetCurrentUserAction) {
     return previous.rebuild((builder) {

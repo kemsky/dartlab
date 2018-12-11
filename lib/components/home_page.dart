@@ -6,9 +6,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 
 @immutable
 class HomePage extends StatelessWidget {
-  final String title;
-
-  HomePage({Key key, this.title}) : super(key: key);
+  HomePage({Key key}) : super(key: key);
 
   void onButtonPress(BuildContext context) {
     StoreProvider.of<AppState>(context).dispatch(getCurrentUserAction);
@@ -21,7 +19,7 @@ class HomePage extends StatelessWidget {
       appBar: new AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: new Text(this.title),
+        title: new Text('Activity'),
       ),
       body: new Center(
         // Center is a layout widget. It takes a single child and positions it

@@ -19,7 +19,8 @@ class SetPackageInfoAction {
 
 class SetRouteAction {
   final String payload;
-  SetRouteAction(this.payload);
+  final bool sync;
+  SetRouteAction(this.payload, {this.sync = true});
 }
 
 ThunkAction<AppState> getCurrentUserAction = (Store<AppState> store) async {
