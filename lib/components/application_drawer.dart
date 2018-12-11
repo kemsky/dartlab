@@ -46,6 +46,7 @@ StoreConnector<AppState, CurrentUser> applicationDrawer() {
                 title: Text('Activity',
                     style: TextStyle(fontWeight: FontWeight.bold)),
                 onTap: () {
+                  Navigator.pop(context);
                   StoreProvider.of<AppState>(context).dispatch(SetRouteAction('/HomePage'));
                 },
               ),
@@ -64,6 +65,7 @@ StoreConnector<AppState, CurrentUser> applicationDrawer() {
                 title: Text('About',
                     style: TextStyle(fontWeight: FontWeight.bold)),
                 onTap: () {
+                  Navigator.pop(context);
                   StoreProvider.of<AppState>(context).dispatch(SetRouteAction('/AboutPage'));
                 },
               ),
