@@ -31,6 +31,7 @@ ThunkAction<AppState> getCurrentUserAction = (Store<AppState> store) async {
       .doOnData((user) {
     logger.info('success ${user.last_sign_in_at}');
     store.dispatch(new SetCurrentUserAction(user));
+    store.dispatch(new SetRouteAction('/HomePage'));
   }).listen((data) {});
 };
 

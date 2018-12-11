@@ -33,6 +33,7 @@ void main() {
   runApp(ApplicationStoreProvider(store));
 
   store.dispatch(loadPackageInfoAction);
+  store.dispatch(getCurrentUserAction);
 
   var databaseClient = DatabaseClient(DatabaseService());
 

@@ -20,7 +20,7 @@ Middleware<AppState> _setCurrentRoute() {
 
     if(action is SetRouteAction) {
       if (action.sync) {
-        navigatorKey.currentState.pushReplacementNamed(action.payload);
+        navigatorKey.currentState.pushNamed(action.payload);
       }
     }
   };
