@@ -1,48 +1,32 @@
 import 'package:dart_lab/state/state.dart';
+import 'package:dart_lab/webapi/api.configuration.dart';
 import 'package:dart_lab/webapi/model/current_user.dart';
+import 'package:dart_lab/webapi/users.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info/package_info.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
-import 'package:dart_lab/webapi/api.configuration.dart';
-import 'package:dart_lab/webapi/users.dart';
-import 'package:rxdart/rxdart.dart';
 
-enum Actions {
-  INCREMENT,
-  DECREMENT,
-  SET_CURRENT_USER,
-  SET_PACKAGE_INFO,
-}
-
-abstract class Action<T, P> {
-  final T type;
+abstract class Action<P> {
   final P payload;
 
-  Action(this.type, {this.payload});
-
-  @override
-  String toString() {
-    return 'Action{type: $type, payload: $payload}';
-  }
+  Action({this.payload});
 }
 
-class IncrementAction extends Action<Actions, void> {
-  IncrementAction() : super(Actions.INCREMENT);
+class IncrementAction extends Action<void> {
+  IncrementAction();
 }
 
-class DecrementAction extends Action<Actions, void> {
-  DecrementAction() : super(Actions.DECREMENT);
+class DecrementAction extends Action<void> {
+  DecrementAction();
 }
 
-class SetCurrentUserAction extends Action<Actions, CurrentUser> {
-  SetCurrentUserAction(CurrentUser payload)
-      : super(Actions.SET_CURRENT_USER, payload: payload);
+class SetCurrentUserAction extends Action<CurrentUser> {
+  SetCurrentUserAction(CurrentUser payload): super(payload: payload);
 }
 
-class SetPackageInfoAction extends Action<Actions, PackageInfo> {
-  SetPackageInfoAction(PackageInfo payload)
-      : super(Actions.SET_PACKAGE_INFO, payload: payload);
+class SetPackageInfoAction extends Action<PackageInfo> {
+  SetPackageInfoAction(PackageInfo payload): super(payload: payload);
 }
 
 ThunkAction<AppState> getCurrentUserAction = (Store<AppState> store) async {
