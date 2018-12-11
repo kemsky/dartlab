@@ -5,6 +5,7 @@ import 'package:dart_lab/state/actions.dart';
 import 'package:dart_lab/state/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:logging/logging.dart';
 import 'package:redux/redux.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
@@ -12,16 +13,22 @@ final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 class ApplicationStoreProvider extends StatelessWidget {
   final Store<AppState> store;
 
-  ApplicationStoreProvider(this.store);
+  final RouteObserver observer;
+
+  ApplicationStoreProvider(this.store): this.observer = RouteObserver(store);
 
   @override
   Widget build(BuildContext context) {
     return new StoreProvider<AppState>(
-        store: this.store, child: new Application());
+        store: this.store, child: new Application(observer));
   }
 }
 
 class Application extends StatelessWidget {
+  final RouteObserver observer;
+
+  Application(this.observer);
+
   @override
   Widget build(BuildContext context) {
     return new StoreConnector<AppState, String>(
@@ -32,6 +39,7 @@ class Application extends StatelessWidget {
             theme: new ThemeData(
               primarySwatch: Colors.deepPurple,
             ),
+            navigatorObservers: [this.observer],
             navigatorKey: navigatorKey,
             routes: <String, WidgetBuilder>{
               '/': (BuildContext context) => new SplashScreen(),
@@ -39,12 +47,54 @@ class Application extends StatelessWidget {
               '/AboutPage': (BuildContext context) => new AboutPage()
             },
             initialRoute: route,
-            onGenerateRoute: (route) => _onGenerateRoute(route, context),
           );
         });
   }
+}
 
-  _onGenerateRoute(RouteSettings route, BuildContext context) {
-    StoreProvider.of<AppState>(context).dispatch(SetRouteAction(route.name, sync: false));
+class RouteObserver extends NavigatorObserver
+{
+  final Logger logger = new Logger('RouteObserver');
+
+  final Store<AppState> store;
+
+  RouteObserver(this.store);
+
+  @override
+  void didPop(Route route, Route previousRoute) {
+    this.logger.info('didPop: $route ${route.settings.isInitialRoute}');
+    this.store.dispatch(SetRouteAction(route.settings.name, isInitialRoute: route.settings.isInitialRoute, sync: false));
   }
+
+  @override
+  void didPush(Route route, Route previousRoute) {
+    this.logger.info('route: $route ${route.settings.isInitialRoute}');
+    this.store.dispatch(SetRouteAction(route.settings.name, isInitialRoute: route.settings.isInitialRoute, sync: false));
+  }
+
+  @override
+  void didRemove(Route route, Route previousRoute) {
+    this.logger.info('didRemove: $route ${route.settings.isInitialRoute}');
+  }
+
+  @override
+  void didReplace({Route newRoute, Route oldRoute}) {
+    this.logger.info('didReplace: $newRoute ${newRoute.settings.isInitialRoute}');
+    this.store.dispatch(SetRouteAction(newRoute.settings.name, isInitialRoute: newRoute.settings.isInitialRoute, sync: false));
+  }
+
+  @override
+  void didStartUserGesture(Route route, Route previousRoute) {
+    this.logger.info('didStartUserGesture: $route');
+  }
+
+  @override
+  void didStopUserGesture() {
+    this.logger.info('didStopUserGesture');
+  }
+
+  @override
+  NavigatorState get navigator => _navigator;
+
+  NavigatorState _navigator;
 }
