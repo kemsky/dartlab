@@ -10,6 +10,7 @@ List<Middleware<AppState>> createAppStateMiddleware() {
   return [
     loggingMiddleware,
     TypedMiddleware<AppState, SetRouteAction>(setCurrentRoute),
+    TypedMiddleware<AppState, SetCurrentUserAction>(setCurrentRoute),
     thunkMiddleware
   ];
 }
@@ -18,9 +19,13 @@ Middleware<AppState> _setCurrentRoute() {
   return (Store<AppState> store, action, NextDispatcher next) {
     next(action);
 
-    if(action is SetRouteAction) {
+    if (action is SetRouteAction) {
       if (action.sync) {
         navigatorKey.currentState.pushNamed(action.payload);
+      }
+    } else if (action is SetCurrentUserAction) {
+      if(store.state.route != '/HomePage'){
+        navigatorKey.currentState.pushNamed('/HomePage');
       }
     }
   };
