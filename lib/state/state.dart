@@ -6,33 +6,27 @@ import 'package:redux/redux.dart';
 
 part 'state.g.dart';
 
-class AboutPageView
+abstract class ApplicationInfo implements Built<ApplicationInfo, ApplicationInfoBuilder>
 {
-  final String appName;
+  static Serializer<ApplicationInfo> get serializer => _$applicationInfoSerializer;
 
-  final String packageName;
+  String get appName;
 
-  final String version;
+  String get packageName;
 
-  final String buildNumber;
+  String get version;
 
-  AboutPageView({this.appName, this.packageName, this.version, this.buildNumber});
+  String get buildNumber;
+
+  ApplicationInfo._();
+
+  factory ApplicationInfo([updates(ApplicationInfoBuilder b)]) =_$ApplicationInfo;
 }
 
 abstract class AppState implements Built<AppState, AppStateBuilder> {
   static Serializer<AppState> get serializer => _$appStateSerializer;
 
-  /// The app name. `CFBundleDisplayName` on iOS, `application/label` on Android.
-  String get appName;
-
-  /// The package name. `bundleIdentifier` on iOS, `getPackageName` on Android.
-  String get packageName;
-
-  /// The package version. `CFBundleShortVersionString` on iOS, `versionName` on Android.
-  String get version;
-
-  /// The build number. `CFBundleVersion` on iOS, `versionCode` on Android.
-  String get buildNumber;
+  ApplicationInfo get applicationInfo;
 
   int get counter;
 
@@ -46,21 +40,16 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
     return AppState((builder) {
       builder.counter = 0;
       builder.title = 'DartLab';
-      builder.appName = '';
-      builder.packageName = '';
-      builder.version = '';
-      builder.buildNumber = '';
+      builder.applicationInfo.version = '';
+      builder.applicationInfo.buildNumber = '';
+      builder.applicationInfo.packageName = '';
+      builder.applicationInfo.appName = '';
     });
   }
 
   AppState._();
 
   factory AppState([updates(AppStateBuilder b)]) =_$AppState;
-
-  @memoized
-  AboutPageView getAboutPage(){
-    return AboutPageView(appName: this.appName, packageName: this.packageName, version: this.version, buildNumber: this.buildNumber);
-  }
 }
 
 final Logger logger = new Logger('loggingMiddleware');

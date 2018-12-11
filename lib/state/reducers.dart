@@ -18,10 +18,12 @@ AppState appReducer(AppState previous, dynamic action) {
   } else if (action is SetPackageInfoAction) {
     return previous.rebuild((builder) {
       builder.counter = builder.counter + 1;
-      builder.appName = action.payload.appName;
-      builder.buildNumber = action.payload.buildNumber;
-      builder.version = action.payload.version;
-      builder.packageName = action.payload.packageName;
+      builder.applicationInfo.update((builder){
+        builder.appName = action.payload.appName;
+        builder.buildNumber = action.payload.buildNumber;
+        builder.version = action.payload.version;
+        builder.packageName = action.payload.packageName;
+      });
     });
   } else {
     return previous;

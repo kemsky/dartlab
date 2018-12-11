@@ -21,8 +21,8 @@ class AboutPage extends StatelessWidget {
           Container(
             height: 250,
             decoration: const BoxDecoration(color: Color.fromARGB(255, 240, 240, 240)),
-            child: new StoreConnector<AppState, AboutPageView>(
-                converter: (store) => store.state.getAboutPage(),
+            child: new StoreConnector<AppState, ApplicationInfo>(
+                converter: (store) => store.state.applicationInfo,
                 builder: (context, packageInfo) {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
