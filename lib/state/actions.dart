@@ -7,18 +7,19 @@ import 'package:package_info/package_info.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 
-abstract class Action<P> {
-  final P payload;
-
-  Action({this.payload});
+class SetCurrentUserAction {
+  final CurrentUser payload;
+  SetCurrentUserAction(this.payload);
 }
 
-class SetCurrentUserAction extends Action<CurrentUser> {
-  SetCurrentUserAction(CurrentUser payload): super(payload: payload);
+class SetPackageInfoAction {
+  final PackageInfo payload;
+  SetPackageInfoAction(this.payload);
 }
 
-class SetPackageInfoAction extends Action<PackageInfo> {
-  SetPackageInfoAction(PackageInfo payload): super(payload: payload);
+class SetRouteAction {
+  final String payload;
+  SetRouteAction(this.payload);
 }
 
 ThunkAction<AppState> getCurrentUserAction = (Store<AppState> store) async {

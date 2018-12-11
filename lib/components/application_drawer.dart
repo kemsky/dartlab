@@ -1,3 +1,4 @@
+import 'package:dart_lab/state/actions.dart';
 import 'package:dart_lab/state/state.dart';
 import 'package:dart_lab/webapi/model/current_user.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +46,7 @@ StoreConnector<AppState, CurrentUser> applicationDrawer() {
                 title: Text('Activity',
                     style: TextStyle(fontWeight: FontWeight.bold)),
                 onTap: () {
-                  Navigator.of(context).pushReplacementNamed('/HomePage');
+                  StoreProvider.of<AppState>(context).dispatch(SetRouteAction('/HomePage'));
                 },
               ),
               ListTile(
@@ -63,7 +64,7 @@ StoreConnector<AppState, CurrentUser> applicationDrawer() {
                 title: Text('About',
                     style: TextStyle(fontWeight: FontWeight.bold)),
                 onTap: () {
-                  Navigator.of(context).pushReplacementNamed('/AboutPage');
+                  StoreProvider.of<AppState>(context).dispatch(SetRouteAction('/AboutPage'));
                 },
               ),
             ],

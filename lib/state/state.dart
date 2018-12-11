@@ -1,6 +1,8 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
+import 'package:dart_lab/components/application.dart';
 import 'package:dart_lab/webapi/model/current_user.dart';
+import 'package:flutter/material.dart' as material;
 import 'package:logging/logging.dart';
 import 'package:redux/redux.dart';
 
@@ -32,6 +34,10 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
   CurrentUser get currentUser;
 
   String get title;
+
+  material.NavigatorState get navigatorState {
+    return navigatorKey.currentState;
+  }
 
   static AppState initial()
   {

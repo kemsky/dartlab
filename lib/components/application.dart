@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
+
 class ApplicationStoreProvider extends StatelessWidget {
   final Store<AppState> store;
 
@@ -30,6 +32,7 @@ class Application extends StatelessWidget {
               primarySwatch: Colors.deepPurple,
             ),
             home: new SplashScreen(),
+            navigatorKey: navigatorKey,
             routes: <String, WidgetBuilder>{
               '/HomePage': (BuildContext context) => new HomePage(title: title),
               '/AboutPage': (BuildContext context) => new AboutPage()
