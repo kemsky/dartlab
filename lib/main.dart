@@ -8,9 +8,9 @@ import 'package:dart_lab/state/reducers.dart';
 import 'package:dart_lab/state/state.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
-import 'package:package_info/package_info.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
+import 'main.reflectable.dart';
 
 //todo: Add Error Reporting https://flutter.io/docs/cookbook/maintenance/error-reporting
 
@@ -20,6 +20,8 @@ void main() {
   Logger.root.onRecord.listen((LogRecord rec) {
     print('${rec.level.name}: ${rec.time}: ${rec.message}');
   });
+
+  initializeReflectable();
 
   //create store
   final store = Store<AppState>(appReducer, initialState: AppState.initial(), middleware: [loggingMiddleware, thunkMiddleware]);
@@ -35,15 +37,15 @@ void main() {
     return b
       ..token = 'token'
       ..url = 'https://gitlab.com';
-  })).listen((data) {
-    print('insert data $data');
+  })).listen((_) {
+    print('insert data');
   }, onError: (e) {
     logger.info('insert error', e);
   }, onDone: () {
     logger.info('insert done');
   });
 
-  UserRepository(databaseClient).load().listen((data) {
+  UserRepository(databaseClient).get().listen((data) {
     print('tx data $data');
   }, onDone: () {
     logger.info('tx done');

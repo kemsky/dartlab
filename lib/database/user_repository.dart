@@ -12,25 +12,28 @@ class UserRepository {
 
   UserRepository(this._client);
 
-  Observable<Optional<User>> load() {
-    return this._client.query('SELECT * from ${User.TableName} WHERE id > 1').map((list) {
+  Observable<Optional<User>> get() {
+    return this._client.query('SELECT * from ${User.TableName} WHERE id = 1').map((list) {
       if (list.isEmpty) {
         return Optional.absent();
       }
+
+      assert(list.length == 1);
+
       var row = list.first;
       return Optional.of(model_serializers.deserializeWith(User.serializer, row));
     });
   }
 
-  Observable<int> save(User user) {
-    if (user.id != null && user.id > 0) {
-      List<dynamic> params = [user.token, user.url, user.fullName, user.email, user.avatarUrl, user.id];
-      var statement = 'UPDATE ${User.TableName} SET token = ?, url = ?, fullName = ?, email = ?, avatarUrl = ? WHERE id = ?';
-      return this._client.update(statement, params).map((_) => user.id);
-    } else {
-      List<dynamic> params = [user.token, user.url, user.fullName ?? '', user.email ?? '', user.avatarUrl ?? ''];
-      var statement = 'INSERT INTO ${User.TableName} (token, url, fullName, email, avatarUrl) VALUES (?, ?, ?, ?, ?)';
-      return this._client.insert(statement, params);
-    }
+  Observable<void> save(User user) {
+    List<dynamic> params = [user.token, user.url, user.fullName ?? '', user.email ?? '', user.avatarUrl ?? ''];
+
+    var statement = 'INSERT INTO ${User.TableName} (id, token, url, fullName, email, avatarUrl) VALUES (1, ?, ?, ?, ?, ?)';
+
+    return this._client.query(statement, params);
+  }
+
+  Observable<void> remove() {
+    return this._client.update("DELETE FROM ${User.TableName}");
   }
 }
