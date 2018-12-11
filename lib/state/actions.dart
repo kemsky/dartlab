@@ -13,14 +13,6 @@ abstract class Action<P> {
   Action({this.payload});
 }
 
-class IncrementAction extends Action<void> {
-  IncrementAction();
-}
-
-class DecrementAction extends Action<void> {
-  DecrementAction();
-}
-
 class SetCurrentUserAction extends Action<CurrentUser> {
   SetCurrentUserAction(CurrentUser payload): super(payload: payload);
 }

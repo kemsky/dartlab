@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
                 converter: (store) => store.state,
                 builder: (context, state) {
                   return new Text(
-                    '${state.counter}',
+                    'boom!',
                     style: Theme.of(context).textTheme.display1,
                   );
                 }),

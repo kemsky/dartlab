@@ -28,8 +28,6 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
 
   ApplicationInfo get applicationInfo;
 
-  int get counter;
-
   @nullable
   CurrentUser get currentUser;
 
@@ -38,7 +36,6 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
   static AppState initial()
   {
     return AppState((builder) {
-      builder.counter = 0;
       builder.title = 'DartLab';
       builder.applicationInfo.version = '';
       builder.applicationInfo.buildNumber = '';
