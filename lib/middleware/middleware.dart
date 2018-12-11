@@ -31,7 +31,7 @@ Middleware<AppState> _setCurrentRoute() {
   };
 }
 
-final Logger logger = new Logger('loggingMiddleware');
+final Logger logger = new Logger('Action');
 
 loggingMiddleware(Store<AppState> store, dynamic action, NextDispatcher next) {
   logger.info(action.toString());
