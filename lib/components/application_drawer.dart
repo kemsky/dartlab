@@ -30,35 +30,32 @@ StoreConnector<AppState, ApplicationDrawerModel> applicationDrawer() {
                       radius: 50,
                       backgroundImage: NetworkImage(model.currentUser?.avatar_url ?? ''),
                     ),
-                    accountName: Text(model.currentUser?.name ?? '',
-                        style: TextStyle(color: Colors.white)),
-                    accountEmail: Text(model.currentUser?.email ?? '',
-                        style: TextStyle(color: Colors.white)),
+                    accountName: Text(model.currentUser?.name ?? '', style: TextStyle(color: Colors.white)),
+                    accountEmail: Text(model.currentUser?.email ?? '', style: TextStyle(color: Colors.white)),
                   ),
                   new Align(
                     alignment: Alignment.topRight,
                     child: Padding(
-                      padding: EdgeInsets.only(top: 16),
+                        padding: EdgeInsets.only(top: 16),
                         child: IconButton(
-                        icon: Icon(Icons.exit_to_app),
-                        color: Colors.white,
-                        onPressed: () {}
-                        )),
+                            icon: Icon(Icons.exit_to_app),
+                            color: Colors.white,
+                            onPressed: () {
+                              Navigator.pop(context);
+                            })),
                   )
                 ],
               ),
               ListTile(
                 leading: const Icon(Icons.assessment, color: Colors.black),
-                title: Text('Activity',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
+                title: Text('Activity', style: TextStyle(fontWeight: FontWeight.bold)),
                 onTap: () {
                   Navigator.pop(context);
                 },
               ),
               ListTile(
                 leading: const Icon(Icons.format_list_bulleted, color: Colors.black),
-                title: Text('Projects',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
+                title: Text('Projects', style: TextStyle(fontWeight: FontWeight.bold)),
                 onTap: () {
                   Navigator.pop(context);
                 },
@@ -66,8 +63,7 @@ StoreConnector<AppState, ApplicationDrawerModel> applicationDrawer() {
               Divider(),
               ListTile(
                 leading: const Icon(Icons.info, color: Colors.black),
-                title: Text('About',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
+                title: Text('About', style: TextStyle(fontWeight: FontWeight.bold)),
                 onTap: () {
                   Navigator.pop(context);
                 },
