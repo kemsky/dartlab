@@ -7,13 +7,9 @@ Future applyMigrations(Database db, int version) async {
   switch (version) {
     case 1:
       await db.execute("""
-          CREATE TABLE ${User.TableName} (
-            id        INTEGER PRIMARY KEY ON CONFLICT REPLACE,
-            token     TEXT NOT NULL,
-            url       TEXT NOT NULL,
-            fullName  TEXT,
-            email     TEXT,
-            avatarUrl TEXT
+          CREATE TABLE KeyValue (
+            key       TEXT PRIMARY KEY NOT NULL ON CONFLICT REPLACE,
+            value     TEXT
           )
       """);
       break;
