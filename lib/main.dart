@@ -15,8 +15,7 @@ import 'main.reflectable.dart';
 
 //todo: Add Error Reporting https://flutter.io/docs/cookbook/maintenance/error-reporting
 
-void main() {
-  //configure Logger package
+void main(List<String> arguments) {
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((LogRecord rec) {
     print('${rec.level.name}: [${rec.loggerName}]: ${rec.message}');
@@ -24,10 +23,13 @@ void main() {
 
   initializeReflectable();
 
+  final dev_host = arguments.length == 2 ? arguments[0] : null;
+  final dev_token = arguments.length == 2 ? arguments[1] : null;
+
   //create store
   final store = Store<AppState>(
       appReducer,
-      initialState: AppState.initial(),
+      initialState: AppState.initial(dev_host, dev_token),
       middleware: createAppStateMiddleware());
 
   //start application

@@ -35,7 +35,7 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
 
   String get route;
 
-  static AppState initial()
+  static AppState initial(String dev_host, String dev_token)
   {
     return AppState((builder) {
       builder.title = 'DartLab';
