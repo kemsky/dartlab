@@ -1,13 +1,32 @@
 library database_client;
 
 import 'package:dart_lab/database/database_manager.dart';
+import 'package:logging/logging.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sqflite/sqflite.dart';
 
-class DatabaseClient {
+abstract class DatabaseClient {
+  Observable<List<Map<String, dynamic>>> query(String query, [List<dynamic> arguments]);
+
+  Observable<int> update(String query, [List<dynamic> arguments]);
+
+  Observable<int> count(String query, [List<dynamic> arguments]);
+
+  Observable<int> insert(String query, [List<dynamic> arguments]);
+
+  Observable<T> transaction<T>(Observable<T> action(DatabaseTransaction tx));
+
+  factory DatabaseClient(DatabaseService service) {
+    return DatabaseClientImpl(service);
+  }
+}
+
+class DatabaseClientImpl implements DatabaseClient {
+  static final Logger logger = new Logger('DatabaseClientImpl');
+
   final DatabaseService _service;
 
-  DatabaseClient(this._service);
+  DatabaseClientImpl(this._service);
 
   Observable<List<Map<String, dynamic>>> query(String query, [List<dynamic> arguments]) {
     return this._service.database.flatMap((db) {
@@ -45,10 +64,24 @@ class DatabaseClient {
   }
 }
 
-class DatabaseTransaction {
+abstract class DatabaseTransaction {
+  Observable<List<Map>> query(String query, [List<dynamic> arguments]);
+
+  Observable<int> update(String query, [List<dynamic> arguments]);
+
+  Observable<int> count(String query, [List<dynamic> arguments]);
+
+  Observable<int> insert(String query, [List<dynamic> arguments]);
+
+  factory DatabaseTransaction(Transaction tx) {
+    return DatabaseTransactionImpl(tx);
+  }
+}
+
+class DatabaseTransactionImpl implements DatabaseTransaction {
   Observable<Transaction> _tx;
 
-  DatabaseTransaction(Transaction tx) {
+  DatabaseTransactionImpl(Transaction tx) {
     _tx = Observable.just(tx);
   }
 

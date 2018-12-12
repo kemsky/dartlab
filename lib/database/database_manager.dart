@@ -9,8 +9,6 @@ import 'package:dart_lab/database/database_migrations.dart';
 abstract class DatabaseService {
   static DatabaseService _instance;
 
-  static final Logger logger = new Logger('DatabaseService');
-
   String get databaseName;
 
   int get databaseVersion;
@@ -29,15 +27,14 @@ abstract class DatabaseService {
 
   factory DatabaseService() {
     if (_instance == null) {
-      logger.info('Creating database service');
-      _instance = _DatabaseService();
+      _instance = DatabaseServiceImpl();
     }
     return _instance;
   }
 }
 
-class _DatabaseService implements DatabaseService {
-  final Logger logger = new Logger('DatabaseService');
+class DatabaseServiceImpl implements DatabaseService {
+  static final Logger logger = new Logger('DatabaseServiceImpl');
 
   static const String _DatabaseName = 'database.db';
   static const int _DatabaseVersion = 1;
@@ -77,9 +74,9 @@ class _DatabaseService implements DatabaseService {
   bool _lock = false;
 
   Observable<Database> open(String path) {
-    this.logger.info('Open database `$path`, version: ${this.databaseVersion}');
+    logger.info('Open database `$path`, version: ${this.databaseVersion}');
     var future = openDatabase(path, version: this.databaseVersion, onCreate: applyMigrations);
-    return Observable.fromFuture(future).doOnData((_) => this.logger.info('Open database success.'));
+    return Observable.fromFuture(future).doOnData((_) => logger.info('Open database success.'));
   }
 
   Observable<void> close(Database db) {

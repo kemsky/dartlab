@@ -1,28 +1,40 @@
-import 'package:dart_lab/database/database_client.dart';
 import 'package:dart_lab/database/model/application_user.dart';
 import 'package:dart_lab/database/database_repository.dart';
 import 'package:logging/logging.dart';
 import 'package:quiver/core.dart';
 import 'package:rxdart/rxdart.dart';
 
-class UserRepository {
+abstract class UserRepository {
+
+  Observable<Optional<ApplicationUser>> get();
+
+  Observable<void> save(ApplicationUser user);
+
+  Observable<void> remove();
+
+  factory UserRepository(DatabaseRepository repository) {
+    return UserRepositoryImpl(repository);
+  }
+}
+
+class UserRepositoryImpl implements UserRepository {
+  static final Logger logger = new Logger('UserRepository');
+
   static final String Key = 'ApplicationUser';
 
-  final Logger logger = new Logger('UserRepository');
+  final DatabaseRepository _repository;
 
-  final DatabaseClient _client;
-
-  UserRepository(this._client);
+  UserRepositoryImpl(this._repository);
 
   Observable<Optional<ApplicationUser>> get() {
-    return DatabaseRepository(this._client).load(Key, ApplicationUser);
+    return this._repository.load(Key, ApplicationUser);
   }
 
   Observable<void> save(ApplicationUser user) {
-    return DatabaseRepository(this._client).save(Key, user);
+    return this._repository.save(Key, user);
   }
 
   Observable<void> remove() {
-    return DatabaseRepository(this._client).delete(Key);
+    return this._repository.delete(Key);
   }
 }

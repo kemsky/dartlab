@@ -9,12 +9,25 @@ import 'package:logging/logging.dart';
 import 'package:quiver/core.dart';
 import 'package:rxdart/rxdart.dart';
 
-class DatabaseRepository {
-  final Logger logger = new Logger('KeyValueRepository');
+abstract class DatabaseRepository
+{
+  Observable<Optional<T>> load<T>(String key, Type entityType);
+
+  Observable<void> save<T>(String key, T entity);
+
+  Observable<void> delete<T>(String key);
+
+  factory DatabaseRepository(DatabaseClient client){
+    return DatabaseRepositoryImpl(client);
+  }
+}
+
+class DatabaseRepositoryImpl implements DatabaseRepository {
+  static final Logger logger = new Logger('DatabaseRepositoryImpl');
 
   final DatabaseClient _client;
 
-  DatabaseRepository(this._client);
+  DatabaseRepositoryImpl(this._client);
 
   Observable<Optional<T>> load<T>(String key, Type entityType) {
     final statement = "SELECT key, value from KeyValue WHERE key = ?";
