@@ -1,4 +1,5 @@
 import 'package:dart_lab/components/application_screen.dart';
+import 'package:dart_lab/components/setup_screen.dart';
 import 'package:dart_lab/components/splash_screen.dart';
 import 'package:dart_lab/screens.dart';
 import 'package:dart_lab/state/actions.dart';
@@ -43,7 +44,8 @@ class Application extends StatelessWidget {
             navigatorKey: navigatorKey,
             routes: <String, WidgetBuilder>{
               Screens.SplashScreen: (BuildContext context) => new SplashScreen(),
-              Screens.ApplicationScreen: (BuildContext context) => new GitLabScreen(),
+              Screens.SetupScreen: (BuildContext context) => new SetupScreen(),
+              Screens.ApplicationScreen: (BuildContext context) => new ApplicationScreen(),
             },
             initialRoute: router.currentScreen.name,
           );
