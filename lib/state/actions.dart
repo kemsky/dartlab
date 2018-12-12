@@ -3,7 +3,7 @@ library actions;
 import 'package:dart_lab/state/state.dart';
 import 'package:dart_lab/webapi/rest_configuration.dart';
 import 'package:dart_lab/webapi/model/gitlab_current_user.dart';
-import 'package:dart_lab/webapi/gitlab_users.dart';
+import 'package:dart_lab/webapi/gitlab_api.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info/package_info.dart';
 import 'package:redux/redux.dart';
@@ -56,7 +56,7 @@ ThunkAction<AppState> getCurrentUserAction = (Store<AppState> store) async {
   final Logger logger = new Logger('getCurrentUserAction');
 
   final config = new Configuration();
-  new Users(config.Host, config.PersonalToken)
+  new GitLabApi(config.Host, config.PersonalToken)
       .getCurrentUser()
       .doOnData((user) {
     logger.info('success ${user.last_sign_in_at}');

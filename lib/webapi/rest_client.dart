@@ -1,8 +1,10 @@
 library rest_client;
 
 import 'dart:convert';
+import 'package:built_value/serializer.dart';
 import 'package:dart_lab/webapi/model/http_method.dart';
 import 'package:dart_lab/webapi/model/http_request.dart';
+import 'package:dart_lab/webapi/model/webapi_serializers.dart';
 import 'package:http/http.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
@@ -16,6 +18,11 @@ abstract class RestClient {
 
   @protected
   RestClient(this.host, {this.secure = true, this.headers = const {}, this.path = const ['api', 'v4']});
+
+  @protected
+  T parseJson<T>(Serializer<T> serializer, String body) {
+    return webapi_serializers.deserializeWith(serializer, json.decode(body));
+  }
 
   @protected
   Observable<Response> execute(HttpRequestBuilder requestBuilder) {
