@@ -6,8 +6,6 @@ import 'package:dart_lab/state/state.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:redux/redux.dart';
-import 'main.reflectable.dart';
-import 'package:reflectable/reflectable.dart';
 
 //todo: Add Error Reporting https://flutter.io/docs/cookbook/maintenance/error-reporting
 
@@ -20,8 +18,6 @@ void main(List<String> arguments) {
   });
 
   _logger.info("Starting application...");
-
-  initializeReflectable();
 
   final dev_host = arguments.length == 2 ? arguments[0] : null;
   final dev_token = arguments.length == 2 ? arguments[1] : null;

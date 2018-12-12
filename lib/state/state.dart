@@ -61,6 +61,10 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
 
   ScreensState get screenState;
 
+  String get host;
+
+  String get token;
+
   static AppState initial(String dev_host, String dev_token)
   {
     return AppState((builder) {
@@ -69,6 +73,8 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
       builder.applicationInfo.buildNumber = '';
       builder.applicationInfo.packageName = '';
       builder.applicationInfo.appName = '';
+      builder.host = dev_host;
+      builder.token = dev_token;
       builder.screenState.update((builder){
         builder.screens.update((builder) {
           builder.add(ScreenState((builder){

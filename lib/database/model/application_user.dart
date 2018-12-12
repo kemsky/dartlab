@@ -2,11 +2,9 @@ library application_user;
 
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:dart_lab/reflection/reflectable.dart';
 
 part 'application_user.g.dart';
 
-@reflector
 abstract class ApplicationUser implements Built<ApplicationUser, ApplicationUserBuilder> {
   static Serializer<ApplicationUser> get serializer => _$applicationUserSerializer;
 

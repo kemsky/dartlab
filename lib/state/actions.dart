@@ -1,7 +1,6 @@
 library actions;
 
 import 'package:dart_lab/state/state.dart';
-import 'package:dart_lab/webapi/rest_configuration.dart';
 import 'package:dart_lab/webapi/model/gitlab_current_user.dart';
 import 'package:dart_lab/webapi/gitlab_api.dart';
 import 'package:logging/logging.dart';
@@ -63,8 +62,7 @@ class SetScreenAction {
 ThunkAction<AppState> getCurrentUserAction = (Store<AppState> store) async {
   final Logger logger = new Logger('getCurrentUserAction');
 
-  final config = new Configuration();
-  new GitLabApi(config.Host, config.PersonalToken)
+  new GitLabApi(store.state.host, store.state.token)
       .getCurrentUser()
       .doOnData((user) {
     logger.info('success ${user.last_sign_in_at}');
