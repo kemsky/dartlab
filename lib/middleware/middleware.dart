@@ -42,7 +42,7 @@ Middleware<AppState> _setCurrentRoute() {
     } else if (action is SetCurrentUserAction) {
       next(action);
       if (store.state.screenState.currentScreen.name != Screens.ApplicationScreen) {
-        navigatorKey.currentState.pushNamed(Screens.ApplicationScreen);
+        navigatorKey.currentState.pushReplacementNamed(Screens.ApplicationScreen);
       }
     }
   };
