@@ -21,7 +21,7 @@ class KeyValueRepository {
 
   KeyValueRepository(this._client);
 
-  Observable<Map<String, dynamic>> load<T>(Type entityType) {
+  Observable<Map<String, dynamic>> load(Type entityType) {
     ClassMirror classMirror = reflector.reflectType(entityType);
     var prefix = classMirror.simpleName;
     var selects = getKeys(classMirror).map((key) => "SELECT SUBSTR(key, LENGTH('${prefix}_') + 1) as key, value from KeyValue WHERE key = '${prefix}_${key}'");
