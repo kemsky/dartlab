@@ -1,6 +1,6 @@
 import 'package:dart_lab/state/state.dart';
 import 'package:dart_lab/webapi/api.configuration.dart';
-import 'package:dart_lab/webapi/model/current_user.dart';
+import 'package:dart_lab/webapi/model/gitlab_current_user.dart';
 import 'package:dart_lab/webapi/users.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info/package_info.dart';
@@ -8,7 +8,7 @@ import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 
 class SetCurrentUserAction {
-  final CurrentUser payload;
+  final GitLabCurrentUser payload;
 
   SetCurrentUserAction(this.payload);
 

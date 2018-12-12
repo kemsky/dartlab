@@ -1,6 +1,6 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:dart_lab/webapi/model/current_user.dart';
+import 'package:dart_lab/webapi/model/gitlab_current_user.dart';
 
 part 'state.g.dart';
 
@@ -27,7 +27,7 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
   ApplicationInfo get applicationInfo;
 
   @nullable
-  CurrentUser get currentUser;
+  GitLabCurrentUser get currentUser;
 
   String get title;
 

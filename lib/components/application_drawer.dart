@@ -1,11 +1,11 @@
 import 'package:dart_lab/state/actions.dart';
 import 'package:dart_lab/state/state.dart';
-import 'package:dart_lab/webapi/model/current_user.dart';
+import 'package:dart_lab/webapi/model/gitlab_current_user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
-StoreConnector<AppState, CurrentUser> applicationDrawer() {
-  return new StoreConnector<AppState, CurrentUser>(
+StoreConnector<AppState, GitLabCurrentUser> applicationDrawer() {
+  return new StoreConnector<AppState, GitLabCurrentUser>(
       converter: (store) => store.state.currentUser,
       builder: (context, state) {
         return Drawer(
