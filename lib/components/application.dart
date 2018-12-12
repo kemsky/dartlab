@@ -1,6 +1,7 @@
 import 'package:dart_lab/components/about_page.dart';
 import 'package:dart_lab/components/home_page.dart';
 import 'package:dart_lab/components/splash_screen.dart';
+import 'package:dart_lab/routes.dart';
 import 'package:dart_lab/state/actions.dart';
 import 'package:dart_lab/state/state.dart';
 import 'package:flutter/material.dart';
@@ -31,9 +32,9 @@ class Application extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new StoreConnector<AppState, String>(
-        converter: (store) => store.state.route,
-        builder: (context, route) {
+    return new StoreConnector<AppState, RouterState>(
+        converter: (store) => store.state.routerState,
+        builder: (context, router) {
           return new MaterialApp(
             title: 'DartLab',
             theme: new ThemeData(
@@ -42,11 +43,11 @@ class Application extends StatelessWidget {
             navigatorObservers: [this.observer],
             navigatorKey: navigatorKey,
             routes: <String, WidgetBuilder>{
-              '/': (BuildContext context) => new SplashScreen(),
-              '/HomePage': (BuildContext context) => new HomePage(),
-              '/AboutPage': (BuildContext context) => new AboutPage()
+              Routes.Splash: (BuildContext context) => new SplashScreen(),
+              Routes.Activity: (BuildContext context) => new HomePage(),
+              Routes.About: (BuildContext context) => new AboutPage()
             },
-            initialRoute: route,
+            initialRoute: router.currentRoute.name,
           );
         });
   }
@@ -63,24 +64,25 @@ class RouteObserver extends NavigatorObserver
   @override
   void didPop(Route route, Route previousRoute) {
     this.logger.info('didPop: $route ${route.settings.isInitialRoute}');
-    this.store.dispatch(SetRouteAction(route.settings.name, isInitialRoute: route.settings.isInitialRoute, sync: false));
+    this.store.dispatch(SetRouteAction(route.settings.name, RouterAction.pop , isInitialRoute: route.settings.isInitialRoute, sync: false));
   }
 
   @override
   void didPush(Route route, Route previousRoute) {
     this.logger.info('route: $route ${route.settings.isInitialRoute}');
-    this.store.dispatch(SetRouteAction(route.settings.name, isInitialRoute: route.settings.isInitialRoute, sync: false));
+    this.store.dispatch(SetRouteAction(route.settings.name, RouterAction.push, isInitialRoute: route.settings.isInitialRoute, sync: false));
   }
 
   @override
   void didRemove(Route route, Route previousRoute) {
     this.logger.info('didRemove: $route ${route.settings.isInitialRoute}');
+    this.store.dispatch(SetRouteAction(route.settings.name, RouterAction.remove, isInitialRoute: route.settings.isInitialRoute, sync: false));
   }
 
   @override
   void didReplace({Route newRoute, Route oldRoute}) {
     this.logger.info('didReplace: $newRoute ${newRoute.settings.isInitialRoute}');
-    this.store.dispatch(SetRouteAction(newRoute.settings.name, isInitialRoute: newRoute.settings.isInitialRoute, sync: false));
+    this.store.dispatch(SetRouteAction(newRoute.settings.name, RouterAction.replace, isInitialRoute: newRoute.settings.isInitialRoute, sync: false));
   }
 
   @override

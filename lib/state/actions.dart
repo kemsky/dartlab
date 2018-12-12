@@ -39,16 +39,24 @@ class SetPackageInfoAction {
   }
 }
 
+enum RouterAction {
+  push,
+  pop,
+  remove,
+  replace
+}
+
 class SetRouteAction {
   final String payload;
   final bool sync;
   final bool isInitialRoute;
+  final RouterAction routerAction;
 
-  SetRouteAction(this.payload, {this.sync = true, this.isInitialRoute = false});
+  SetRouteAction(this.payload, this.routerAction, {this.sync=true, this.isInitialRoute=false });
 
   @override
   String toString() {
-    return 'SetRouteAction{payload: $payload, sync: $sync, isInitialRoute: $isInitialRoute}';
+    return 'SetRouteAction{payload: $payload, sync: $sync, isInitialRoute: $isInitialRoute, routerAction: $routerAction}';
   }
 }
 

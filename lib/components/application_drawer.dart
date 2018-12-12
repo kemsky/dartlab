@@ -1,3 +1,4 @@
+import 'package:dart_lab/routes.dart';
 import 'package:dart_lab/state/actions.dart';
 import 'package:dart_lab/state/state.dart';
 import 'package:dart_lab/webapi/model/gitlab_current_user.dart';
@@ -47,7 +48,7 @@ StoreConnector<AppState, GitLabCurrentUser> applicationDrawer() {
                     style: TextStyle(fontWeight: FontWeight.bold)),
                 onTap: () {
                   Navigator.pop(context);
-                  StoreProvider.of<AppState>(context).dispatch(SetRouteAction('/HomePage'));
+                  StoreProvider.of<AppState>(context).dispatch(SetRouteAction(Routes.Activity, RouterAction.replace));
                 },
               ),
               ListTile(
@@ -66,7 +67,7 @@ StoreConnector<AppState, GitLabCurrentUser> applicationDrawer() {
                     style: TextStyle(fontWeight: FontWeight.bold)),
                 onTap: () {
                   Navigator.pop(context);
-                  StoreProvider.of<AppState>(context).dispatch(SetRouteAction('/AboutPage'));
+                  StoreProvider.of<AppState>(context).dispatch(SetRouteAction(Routes.About, RouterAction.push));
                 },
               ),
             ],

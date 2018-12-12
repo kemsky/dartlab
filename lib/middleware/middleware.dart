@@ -1,6 +1,7 @@
 library middleware;
 
 import 'package:dart_lab/components/application.dart';
+import 'package:dart_lab/routes.dart';
 import 'package:dart_lab/state/actions.dart';
 import 'package:logging/logging.dart';
 import 'package:redux/redux.dart';
@@ -19,15 +20,29 @@ List<Middleware<AppState>> createAppStateMiddleware() {
 
 Middleware<AppState> _setCurrentRoute() {
   return (Store<AppState> store, action, NextDispatcher next) {
-    next(action);
-
     if (action is SetRouteAction) {
       if (action.sync) {
-        navigatorKey.currentState.pushNamed(action.payload);
+        switch (action.routerAction) {
+          case RouterAction.pop:
+            navigatorKey.currentState.pop(action.payload);
+            break;
+          case RouterAction.push:
+            navigatorKey.currentState.pushNamed(action.payload);
+            break;
+          case RouterAction.replace:
+            navigatorKey.currentState.pushReplacementNamed(action.payload);
+            break;
+          case RouterAction.remove:
+            throw 'not implemented: ${action.routerAction}';
+            break;
+        }
+      } else {
+        next(action);
       }
     } else if (action is SetCurrentUserAction) {
-      if(store.state.route != '/HomePage'){
-        navigatorKey.currentState.pushNamed('/HomePage');
+      next(action);
+      if (store.state.routerState.currentRoute.name != Routes.Activity) {
+        navigatorKey.currentState.pushReplacementNamed(Routes.Activity);
       }
     }
   };
