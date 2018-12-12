@@ -39,24 +39,24 @@ class SetPackageInfoAction {
   }
 }
 
-enum RouterAction {
+enum ScreenAction {
   push,
   pop,
   remove,
   replace
 }
 
-class SetRouteAction {
-  final String payload;
+class SetScreenAction {
+  final String screen;
   final bool sync;
-  final bool isInitialRoute;
-  final RouterAction routerAction;
+  final bool isInitialScreen;
+  final ScreenAction screenAction;
 
-  SetRouteAction(this.payload, this.routerAction, {this.sync=true, this.isInitialRoute=false });
+  SetScreenAction(this.screen, this.screenAction, {this.sync=true, this.isInitialScreen=false });
 
   @override
   String toString() {
-    return 'SetRouteAction{payload: $payload, sync: $sync, isInitialRoute: $isInitialRoute, routerAction: $routerAction}';
+    return 'SetScreenAction{screen: $screen, sync: $sync, isInitialScreen: $isInitialScreen, screenAction: $screenAction}';
   }
 }
 

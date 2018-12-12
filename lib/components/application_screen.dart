@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 @immutable
-class HomePage extends StatelessWidget {
-  HomePage({Key key}) : super(key: key);
+class GitLabScreen extends StatelessWidget {
+  GitLabScreen({Key key}) : super(key: key);
 
   void onButtonPress(BuildContext context) {
     StoreProvider.of<AppState>(context).dispatch(getCurrentUserAction);

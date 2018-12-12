@@ -1,7 +1,6 @@
-import 'package:dart_lab/components/about_page.dart';
-import 'package:dart_lab/components/home_page.dart';
+import 'package:dart_lab/components/application_screen.dart';
 import 'package:dart_lab/components/splash_screen.dart';
-import 'package:dart_lab/routes.dart';
+import 'package:dart_lab/screens.dart';
 import 'package:dart_lab/state/actions.dart';
 import 'package:dart_lab/state/state.dart';
 import 'package:flutter/material.dart';
@@ -32,8 +31,8 @@ class Application extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new StoreConnector<AppState, RouterState>(
-        converter: (store) => store.state.routerState,
+    return new StoreConnector<AppState, ScreensState>(
+        converter: (store) => store.state.screenState,
         builder: (context, router) {
           return new MaterialApp(
             title: 'DartLab',
@@ -43,11 +42,10 @@ class Application extends StatelessWidget {
             navigatorObservers: [this.observer],
             navigatorKey: navigatorKey,
             routes: <String, WidgetBuilder>{
-              Routes.Splash: (BuildContext context) => new SplashScreen(),
-              Routes.Activity: (BuildContext context) => new HomePage(),
-              Routes.About: (BuildContext context) => new AboutPage()
+              Screens.SplashScreen: (BuildContext context) => new SplashScreen(),
+              Screens.ApplicationScreen: (BuildContext context) => new GitLabScreen(),
             },
-            initialRoute: router.currentRoute.name,
+            initialRoute: router.currentScreen.name,
           );
         });
   }
@@ -63,36 +61,36 @@ class RouteObserver extends NavigatorObserver
 
   @override
   void didPop(Route route, Route previousRoute) {
-    this.logger.info('didPop: $route ${route.settings.isInitialRoute}');
-    this.store.dispatch(SetRouteAction(route.settings.name, RouterAction.pop , isInitialRoute: route.settings.isInitialRoute, sync: false));
+    this.logger.info('screen didPop: $route ${route.settings.isInitialRoute}');
+    this.store.dispatch(SetScreenAction(route.settings.name, ScreenAction.pop , isInitialScreen: route.settings.isInitialRoute, sync: false));
   }
 
   @override
   void didPush(Route route, Route previousRoute) {
-    this.logger.info('route: $route ${route.settings.isInitialRoute}');
-    this.store.dispatch(SetRouteAction(route.settings.name, RouterAction.push, isInitialRoute: route.settings.isInitialRoute, sync: false));
+    this.logger.info('screen didPush: $route ${route.settings.isInitialRoute}');
+    this.store.dispatch(SetScreenAction(route.settings.name, ScreenAction.push, isInitialScreen: route.settings.isInitialRoute, sync: false));
   }
 
   @override
   void didRemove(Route route, Route previousRoute) {
-    this.logger.info('didRemove: $route ${route.settings.isInitialRoute}');
-    this.store.dispatch(SetRouteAction(route.settings.name, RouterAction.remove, isInitialRoute: route.settings.isInitialRoute, sync: false));
+    this.logger.info('screen didRemove: $route ${route.settings.isInitialRoute}');
+    this.store.dispatch(SetScreenAction(route.settings.name, ScreenAction.remove, isInitialScreen: route.settings.isInitialRoute, sync: false));
   }
 
   @override
   void didReplace({Route newRoute, Route oldRoute}) {
-    this.logger.info('didReplace: $newRoute ${newRoute.settings.isInitialRoute}');
-    this.store.dispatch(SetRouteAction(newRoute.settings.name, RouterAction.replace, isInitialRoute: newRoute.settings.isInitialRoute, sync: false));
+    this.logger.info('screen didReplace: $newRoute ${newRoute.settings.isInitialRoute}');
+    this.store.dispatch(SetScreenAction(newRoute.settings.name, ScreenAction.replace, isInitialScreen: newRoute.settings.isInitialRoute, sync: false));
   }
 
   @override
   void didStartUserGesture(Route route, Route previousRoute) {
-    this.logger.info('didStartUserGesture: $route');
+    //nothing
   }
 
   @override
   void didStopUserGesture() {
-    this.logger.info('didStopUserGesture');
+    //nothing
   }
 
   @override

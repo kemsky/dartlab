@@ -5,8 +5,8 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 @immutable
-class AboutPage extends StatelessWidget {
-  AboutPage({Key key}) : super(key: key);
+class ApplicationAboutView extends StatelessWidget {
+  ApplicationAboutView({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

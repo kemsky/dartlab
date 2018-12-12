@@ -25,28 +25,28 @@ abstract class ApplicationInfo implements Built<ApplicationInfo, ApplicationInfo
   factory ApplicationInfo([updates(ApplicationInfoBuilder b)]) =_$ApplicationInfo;
 }
 
-abstract class RouteState implements Built<RouteState, RouteStateBuilder> {
-  static Serializer<RouteState> get serializer => _$routeStateSerializer;
+abstract class ScreenState implements Built<ScreenState, ScreenStateBuilder> {
+  static Serializer<ScreenState> get serializer => _$screenStateSerializer;
 
   String get name;
 
-  bool get isInitialRoute;
+  bool get isInitialScreen;
 
-  RouteState._();
+  ScreenState._();
 
-  factory RouteState([updates(RouteStateBuilder b)]) =_$RouteState;
+  factory ScreenState([updates(ScreenStateBuilder b)]) =_$ScreenState;
 }
 
-abstract class RouterState implements Built<RouterState, RouterStateBuilder> {
-  static Serializer<RouterState> get serializer => _$routerStateSerializer;
+abstract class ScreensState implements Built<ScreensState, ScreensStateBuilder> {
+  static Serializer<ScreensState> get serializer => _$screensStateSerializer;
 
-  BuiltList<RouteState> get routes;
+  BuiltList<ScreenState> get screens;
 
-  RouteState get currentRoute => routes.last;
+  ScreenState get currentScreen => screens.last;
 
-  RouterState._();
+  ScreensState._();
 
-  factory RouterState([updates(RouterStateBuilder b)]) =_$RouterState;
+  factory ScreensState([updates(ScreensStateBuilder b)]) =_$ScreensState;
 }
 
 abstract class AppState implements Built<AppState, AppStateBuilder> {
@@ -59,7 +59,7 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
 
   String get title;
 
-  RouterState get routerState;
+  ScreensState get screenState;
 
   static AppState initial(String dev_host, String dev_token)
   {
@@ -69,11 +69,11 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
       builder.applicationInfo.buildNumber = '';
       builder.applicationInfo.packageName = '';
       builder.applicationInfo.appName = '';
-      builder.routerState.update((builder){
-        builder.routes.update((builder) {
-          builder.add(RouteState((builder){
+      builder.screenState.update((builder){
+        builder.screens.update((builder) {
+          builder.add(ScreenState((builder){
             builder.name = '/';
-            builder.isInitialRoute = true;
+            builder.isInitialScreen = true;
           }));
         });
       });
@@ -82,7 +82,7 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
 
   @memoized
   ApplicationDrawerModel getApplicationDrawerModel() {
-    return ApplicationDrawerModel(this.routerState.currentRoute, this.currentUser);
+    return ApplicationDrawerModel(this.screenState.currentScreen, this.currentUser);
   }
 
   AppState._();

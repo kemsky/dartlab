@@ -1,7 +1,7 @@
 library middleware;
 
 import 'package:dart_lab/components/application.dart';
-import 'package:dart_lab/routes.dart';
+import 'package:dart_lab/screens.dart';
 import 'package:dart_lab/state/actions.dart';
 import 'package:logging/logging.dart';
 import 'package:redux/redux.dart';
@@ -12,7 +12,7 @@ List<Middleware<AppState>> createAppStateMiddleware() {
   final setCurrentRoute = _setCurrentRoute();
   return [
     loggingMiddleware,
-    TypedMiddleware<AppState, SetRouteAction>(setCurrentRoute),
+    TypedMiddleware<AppState, SetScreenAction>(setCurrentRoute),
     TypedMiddleware<AppState, SetCurrentUserAction>(setCurrentRoute),
     thunkMiddleware
   ];
@@ -20,20 +20,20 @@ List<Middleware<AppState>> createAppStateMiddleware() {
 
 Middleware<AppState> _setCurrentRoute() {
   return (Store<AppState> store, action, NextDispatcher next) {
-    if (action is SetRouteAction) {
+    if (action is SetScreenAction) {
       if (action.sync) {
-        switch (action.routerAction) {
-          case RouterAction.pop:
-            navigatorKey.currentState.pop(action.payload);
+        switch (action.screenAction) {
+          case ScreenAction.pop:
+            navigatorKey.currentState.pop(action.screen);
             break;
-          case RouterAction.push:
-            navigatorKey.currentState.pushNamed(action.payload);
+          case ScreenAction.push:
+            navigatorKey.currentState.pushNamed(action.screen);
             break;
-          case RouterAction.replace:
-            navigatorKey.currentState.pushReplacementNamed(action.payload);
+          case ScreenAction.replace:
+            navigatorKey.currentState.pushReplacementNamed(action.screen);
             break;
-          case RouterAction.remove:
-            throw 'not implemented: ${action.routerAction}';
+          case ScreenAction.remove:
+            throw 'not implemented: ${action.screenAction}';
             break;
         }
       } else {
@@ -41,8 +41,8 @@ Middleware<AppState> _setCurrentRoute() {
       }
     } else if (action is SetCurrentUserAction) {
       next(action);
-      if (store.state.routerState.currentRoute.name != Routes.Activity) {
-        navigatorKey.currentState.pushReplacementNamed(Routes.Activity);
+      if (store.state.screenState.currentScreen.name != Screens.ApplicationScreen) {
+        navigatorKey.currentState.pushReplacementNamed(Screens.ApplicationScreen);
       }
     }
   };

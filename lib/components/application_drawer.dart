@@ -1,12 +1,10 @@
-import 'package:dart_lab/routes.dart';
-import 'package:dart_lab/state/actions.dart';
 import 'package:dart_lab/state/state.dart';
 import 'package:dart_lab/webapi/model/gitlab_current_user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 class ApplicationDrawerModel {
-  final RouteState currentRoute;
+  final ScreenState currentRoute;
   final GitLabCurrentUser currentUser;
 
   ApplicationDrawerModel(this.currentRoute, this.currentUser);
@@ -55,9 +53,6 @@ StoreConnector<AppState, ApplicationDrawerModel> applicationDrawer() {
                     style: TextStyle(fontWeight: FontWeight.bold)),
                 onTap: () {
                   Navigator.pop(context);
-                  if(model.currentRoute.name != Routes.Activity) {
-                    StoreProvider.of<AppState>(context).dispatch(SetRouteAction(Routes.Activity, RouterAction.replace));
-                  }
                 },
               ),
               ListTile(
@@ -75,9 +70,6 @@ StoreConnector<AppState, ApplicationDrawerModel> applicationDrawer() {
                     style: TextStyle(fontWeight: FontWeight.bold)),
                 onTap: () {
                   Navigator.pop(context);
-                  if(model.currentRoute.name != Routes.About) {
-                    StoreProvider.of<AppState>(context).dispatch(SetRouteAction(Routes.About, RouterAction.push));
-                  }
                 },
               ),
             ],

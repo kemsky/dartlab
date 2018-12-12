@@ -4,31 +4,31 @@ import 'package:dart_lab/state/actions.dart';
 import 'package:dart_lab/state/state.dart';
 
 AppState appReducer(AppState previous, dynamic action) {
-  if (action is SetRouteAction && !action.isInitialRoute) {
+  if (action is SetScreenAction && !action.isInitialScreen) {
     return previous.rebuild((builder) {
-      builder.routerState.update((builder) {
-        switch(action.routerAction){
-          case RouterAction.pop:
-            builder.routes.remove(builder.routes.last);
+      builder.screenState.update((builder) {
+        switch(action.screenAction){
+          case ScreenAction.pop:
+            builder.screens.remove(builder.screens.last);
             break;
-          case RouterAction.push:
-            builder.routes.add(RouteState((builder) {
-              builder.name = action.payload;
-              builder.isInitialRoute = action.isInitialRoute;
+          case ScreenAction.push:
+            builder.screens.add(ScreenState((builder) {
+              builder.name = action.screen;
+              builder.isInitialScreen = action.isInitialScreen;
             }));
             break;
-          case RouterAction.replace:
-            builder.routes.remove(builder.routes.last);
-            builder.routes.add(RouteState((builder) {
-              builder.name = action.payload;
-              builder.isInitialRoute = action.isInitialRoute;
+          case ScreenAction.replace:
+            builder.screens.remove(builder.screens.last);
+            builder.screens.add(ScreenState((builder) {
+              builder.name = action.screen;
+              builder.isInitialScreen = action.isInitialScreen;
             }));
             break;
-          case RouterAction.remove:
-            throw 'not implemented: ${action.routerAction}';
+          case ScreenAction.remove:
+            throw 'not implemented: ${action.screenAction}';
             break;
         }
-        print('${builder.routes.build()}');
+        print('${builder.screens.build()}');
       });
     });
   } else if (action is SetCurrentUserAction) {
