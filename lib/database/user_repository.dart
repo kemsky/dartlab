@@ -15,7 +15,7 @@ class UserRepository {
 
   Observable<Optional<User>> get() {
     return KeyValueRepository(this._client)
-        .load(['token', 'url'])
+        .load(User)
         .map((map) {
       if (map.isEmpty) {
         return Optional.absent();
@@ -29,6 +29,6 @@ class UserRepository {
   }
 
   Observable<void> remove() {
-    return this._client.update("DELETE FROM ${User.TableName}");
+    return KeyValueRepository(this._client).delete(User);
   }
 }

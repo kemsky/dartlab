@@ -6,8 +6,6 @@ part 'user.g.dart';
 
 @reflector
 abstract class User implements Built<User, UserBuilder> {
-  static const String TableName = 'User';
-
   static Serializer<User> get serializer => _$userSerializer;
 
   String get token;

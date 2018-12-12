@@ -1,6 +1,8 @@
 import 'package:dart_lab/database/database_client.dart';
 import 'package:dart_lab/database/model/database_serializers.dart';
+import 'package:dart_lab/reflection/reflectable.dart';
 import 'package:logging/logging.dart';
+import 'package:reflectable/reflectable.dart';
 import 'package:rxdart/rxdart.dart';
 
 class KeyValueRepository {
@@ -10,8 +12,10 @@ class KeyValueRepository {
 
   KeyValueRepository(this._client);
 
-  Observable<Map<String, dynamic>> load<T>(List<String> keys) {
-    var selects = keys.map((key) => "SELECT key, value from KeyValue WHERE key = '$key'");
+  Observable<Map<String, dynamic>> load<T>(Type entityType) {
+    ClassMirror classMirror = reflector.reflectType(entityType);
+
+    var selects = classMirror.instanceMembers.keys.map((key) => "SELECT key, value from KeyValue WHERE key = '$key'");
     var statement = selects.join(' UNION ALL ');
 
     logger.info('SQL: $statement');
@@ -45,5 +49,16 @@ class KeyValueRepository {
     logger.info('SQL: $statement');
 
     return this._client.query(statement, params);
+  }
+
+  Observable<void> delete<T>(Type entityType) {
+    ClassMirror classMirror = reflector.reflectType(entityType);
+
+    var where = classMirror.instanceMembers.keys.map((key) => "key = '$key'");
+    var statement = 'DELETE FROM KeyValue WHERE ' + where.join(' OR ');
+
+    logger.info('SQL: $statement');
+
+    return this._client.query(statement);
   }
 }
