@@ -6,6 +6,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:sqflite/sqflite.dart';
 
 abstract class DatabaseClient {
+
   Observable<List<Map<String, dynamic>>> query(String query, [List<dynamic> arguments]);
 
   Observable<int> update(String query, [List<dynamic> arguments]);
@@ -22,7 +23,7 @@ abstract class DatabaseClient {
 }
 
 class DatabaseClientImpl implements DatabaseClient {
-  static final Logger logger = new Logger('DatabaseClientImpl');
+  static final Logger _logger = new Logger('DatabaseClientImpl');
 
   final DatabaseService _service;
 
@@ -65,6 +66,7 @@ class DatabaseClientImpl implements DatabaseClient {
 }
 
 abstract class DatabaseTransaction {
+
   Observable<List<Map>> query(String query, [List<dynamic> arguments]);
 
   Observable<int> update(String query, [List<dynamic> arguments]);
@@ -79,6 +81,8 @@ abstract class DatabaseTransaction {
 }
 
 class DatabaseTransactionImpl implements DatabaseTransaction {
+  static final Logger _logger = new Logger('DatabaseTransactionImpl');
+
   Observable<Transaction> _tx;
 
   DatabaseTransactionImpl(Transaction tx) {

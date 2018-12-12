@@ -9,21 +9,21 @@ import 'package:logging/logging.dart';
 import 'package:quiver/core.dart';
 import 'package:rxdart/rxdart.dart';
 
-abstract class DatabaseRepository
-{
+abstract class DatabaseRepository {
+
   Observable<Optional<T>> load<T>(String key, Type entityType);
 
   Observable<void> save<T>(String key, T entity);
 
-  Observable<void> delete<T>(String key);
+  Observable<void> delete(String key);
 
-  factory DatabaseRepository(DatabaseClient client){
+  factory DatabaseRepository(DatabaseClient client) {
     return DatabaseRepositoryImpl(client);
   }
 }
 
 class DatabaseRepositoryImpl implements DatabaseRepository {
-  static final Logger logger = new Logger('DatabaseRepositoryImpl');
+  static final Logger _logger = new Logger('DatabaseRepositoryImpl');
 
   final DatabaseClient _client;
 
@@ -34,7 +34,7 @@ class DatabaseRepositoryImpl implements DatabaseRepository {
 
     final params = [key];
 
-    logger.info('SQL: $statement, params: $params');
+    _logger.info('SQL: $statement, params: $params');
 
     return this._client.query(statement, params).map((rows) {
       if (rows.isEmpty) {
@@ -55,17 +55,17 @@ class DatabaseRepositoryImpl implements DatabaseRepository {
 
     final params = [key, json.encode(values)];
 
-    logger.info('SQL: $statement, params: $params');
+    _logger.info('SQL: $statement, params: $params');
 
     return this._client.query(statement, params);
   }
 
-  Observable<void> delete<T>(String key) {
+  Observable<void> delete(String key) {
     final statement = 'DELETE FROM KeyValue WHERE key = ?';
 
     final params = [key];
 
-    logger.info('SQL: $statement');
+    _logger.info('SQL: $statement');
 
     return this._client.query(statement, params);
   }
