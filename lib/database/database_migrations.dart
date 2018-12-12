@@ -1,6 +1,6 @@
 library database_migrations;
 
-import 'package:dart_lab/database/model/user.dart';
+import 'package:dart_lab/database/model/application_user.dart';
 import 'package:sqflite/sqflite.dart';
 
 Future applyMigrations(Database db, int version) async {

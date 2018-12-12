@@ -1,7 +1,7 @@
 import 'package:dart_lab/components/application.dart';
 import 'package:dart_lab/database/database_client.dart';
 import 'package:dart_lab/database/database_manager.dart';
-import 'package:dart_lab/database/model/user.dart';
+import 'package:dart_lab/database/model/application_user.dart';
 import 'package:dart_lab/database/user_repository.dart';
 import 'package:dart_lab/middleware/middleware.dart';
 import 'package:dart_lab/state/actions.dart';
@@ -37,7 +37,7 @@ void main() {
 
   var databaseClient = DatabaseClient(DatabaseService());
 
-  UserRepository(databaseClient).save(User((b) {
+  UserRepository(databaseClient).save(ApplicationUser((b) {
     return b
       ..token = 'token'
       ..url = 'https://gitlab.com';

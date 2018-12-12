@@ -3,12 +3,12 @@ import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/src/built_map_serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
-import 'package:dart_lab/database/model/user.dart';
+import 'package:dart_lab/database/model/application_user.dart';
 
 part 'database_serializers.g.dart';
 
 @SerializersFor(const [
-  User
+  ApplicationUser
 ])
 
 final Serializers model_serializers = (
