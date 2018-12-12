@@ -1,8 +1,5 @@
-# flutter_example
+# DARTLAB
 
-A new Flutter application.
+A new Flutter application. GitLab client (http://gitlab.com).
 
-## Getting Started
-
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
+This is work in progress.
