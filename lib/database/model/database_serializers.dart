@@ -1,3 +1,5 @@
+library database_serializers;
+
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:built_value/serializer.dart';
@@ -11,8 +13,8 @@ part 'database_serializers.g.dart';
   ApplicationUser
 ])
 
-final Serializers model_serializers = (
-    _$model_serializers
+final Serializers database_serializers = (
+    _$database_serializers
         .toBuilder()
       ..add(Iso8601DateTimeSerializer())
       ..addPlugin(StandardJsonPlugin())

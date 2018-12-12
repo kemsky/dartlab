@@ -1,3 +1,5 @@
+library middleware;
+
 import 'package:dart_lab/components/application.dart';
 import 'package:dart_lab/state/actions.dart';
 import 'package:logging/logging.dart';

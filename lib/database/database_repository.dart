@@ -42,12 +42,12 @@ class DatabaseRepositoryImpl implements DatabaseRepository {
       }
       String result = rows.first['value'];
 
-      return Optional.of(model_serializers.deserialize(json.decode(result), specifiedType: FullType(entityType)));
+      return Optional.of(database_serializers.deserialize(json.decode(result), specifiedType: FullType(entityType)));
     });
   }
 
   Observable<void> save<T>(String key, T entity) {
-    final Map<String, dynamic> values = model_serializers.serialize(entity);
+    final Map<String, dynamic> values = database_serializers.serialize(entity);
 
     values.remove('\$');
 

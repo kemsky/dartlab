@@ -1,3 +1,5 @@
+library state;
+
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dart_lab/webapi/model/gitlab_current_user.dart';

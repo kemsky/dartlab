@@ -1,3 +1,5 @@
+library webapi_serializers;
+
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:built_value/serializer.dart';
@@ -12,8 +14,8 @@ part 'webapi_serializers.g.dart';
   GitLabCurrentUser
 ])
 
-final Serializers model_serializers = (
-    _$model_serializers
+final Serializers webapi_serializers = (
+    _$webapi_serializers
         .toBuilder()
       ..add(Iso8601DateTimeSerializer()) // Support  DateTime deserialization
       ..addPlugin(StandardJsonPlugin())  // Support JSON deserialization

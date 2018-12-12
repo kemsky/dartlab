@@ -1,3 +1,5 @@
+library reflector;
+
 import 'package:reflectable/reflectable.dart';
 import 'package:reflectable/capability.dart';
 

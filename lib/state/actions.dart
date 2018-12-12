@@ -1,7 +1,9 @@
+library actions;
+
 import 'package:dart_lab/state/state.dart';
-import 'package:dart_lab/webapi/api.configuration.dart';
+import 'package:dart_lab/webapi/rest_configuration.dart';
 import 'package:dart_lab/webapi/model/gitlab_current_user.dart';
-import 'package:dart_lab/webapi/users.dart';
+import 'package:dart_lab/webapi/gitlab_users.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info/package_info.dart';
 import 'package:redux/redux.dart';

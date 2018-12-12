@@ -1,3 +1,5 @@
+library user_repository;
+
 import 'package:dart_lab/database/model/application_user.dart';
 import 'package:dart_lab/database/database_repository.dart';
 import 'package:logging/logging.dart';

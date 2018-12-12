@@ -1,3 +1,5 @@
+library rest_configuration;
+
 class Configuration
 {
   final String PersonalToken = 'VN8qyeq_x6mnHHfuP9yy';

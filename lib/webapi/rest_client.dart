@@ -1,18 +1,19 @@
-import 'dart:convert';
+library rest_client;
 
+import 'dart:convert';
 import 'package:dart_lab/webapi/model/http_method.dart';
 import 'package:dart_lab/webapi/model/http_request.dart';
 import 'package:http/http.dart';
 import 'package:meta/meta.dart';
-import 'package:dart_lab/webapi/api.configuration.dart';
+import 'package:dart_lab/webapi/rest_configuration.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:http/http.dart' as http;
 
-abstract class ApiClass {
+abstract class RestClient {
   final Configuration Config;
 
   @protected
-  ApiClass(this.Config);
+  RestClient(this.Config);
 
   @protected
   Observable<Response> execute(HttpRequestBuilder requestBuilder) {
