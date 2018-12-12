@@ -55,7 +55,8 @@ class SetRouteAction {
 ThunkAction<AppState> getCurrentUserAction = (Store<AppState> store) async {
   final Logger logger = new Logger('getCurrentUserAction');
 
-  new Users(new Configuration())
+  final config = new Configuration();
+  new Users(config.Host, config.PersonalToken)
       .getCurrentUser()
       .doOnData((user) {
     logger.info('success ${user.last_sign_in_at}');
