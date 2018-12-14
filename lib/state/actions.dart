@@ -45,6 +45,13 @@ class SetScreenAction {
   final bool sync;
   final bool isInitialRoute;
   final NavigatorAction navigatorAction;
+  String get route {
+    if (url == '/') {
+      return '/';
+    } else {
+      return url.split('/').firstWhere((element) => element.length > 0);
+    }
+  }
 
   SetScreenAction(this.url, this.navigatorAction, {this.sync = true, this.isInitialRoute = false});
 

@@ -22,14 +22,16 @@ Middleware<AppState> _setCurrentRoute() {
   return (Store<AppState> store, action, NextDispatcher next) {
     if (action is SetScreenAction) {
       if (action.sync) {
-        navigatorKey.currentState.pop(action.url);
+        if(action.route != store.state.routerState.route) {
+          navigatorKey.currentState.pushReplacementNamed(action.route);
+        }
       } else {
         next(action);
       }
     } else if (action is SetCurrentUserAction) {
       next(action);
-      if (store.state.routerState.route != Routes.ApplicationScreen) {
-        navigatorKey.currentState.pushReplacementNamed(Routes.ApplicationScreen);
+      if (store.state.routerState.route != Routes.ApplicationRoute) {
+        navigatorKey.currentState.pushReplacementNamed(Routes.ApplicationRoute);
       }
     }
   };

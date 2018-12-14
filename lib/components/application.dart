@@ -65,9 +65,9 @@ class Application extends StatelessWidget {
             navigatorObservers: [this.observer],
             navigatorKey: navigatorKey,
             routes: <String, WidgetBuilder>{
-              Routes.SplashScreen: (BuildContext context) => new SplashScreen(),
-              Routes.SetupScreen: (BuildContext context) => new SetupScreen(),
-              Routes.ApplicationScreen: (BuildContext context) => new ApplicationScreen(),
+              Routes.SplashRoute: (BuildContext context) => new SplashScreen(),
+              Routes.SetupRoute: (BuildContext context) => new SetupScreen(),
+              Routes.ApplicationRoute: (BuildContext context) => new ApplicationScreen(),
             },
             initialRoute: router.route,
           );

@@ -30,7 +30,22 @@ abstract class RouterState implements Built<RouterState, RouterStateBuilder> {
   String get url;
 
   @memoized
-  String get route => url.split('/').first;
+  String get route {
+    if (url == '/') {
+      return '/';
+    } else {
+      return url.split('/').firstWhere((element) => element.length > 0);
+    }
+  }
+
+  @memoized
+  List<String> get path {
+    if (url == '/') {
+      return [];
+    } else {
+      return url.split('/').where((element) => element.length > 0).skip(1);
+    }
+  }
 
   RouterState._();
 
