@@ -1,7 +1,7 @@
 library middleware;
 
 import 'package:dart_lab/components/application.dart';
-import 'package:dart_lab/screens.dart';
+import 'package:dart_lab/routes.dart';
 import 'package:dart_lab/state/actions.dart';
 import 'package:logging/logging.dart';
 import 'package:redux/redux.dart';
@@ -22,27 +22,14 @@ Middleware<AppState> _setCurrentRoute() {
   return (Store<AppState> store, action, NextDispatcher next) {
     if (action is SetScreenAction) {
       if (action.sync) {
-        switch (action.screenAction) {
-          case ScreenAction.pop:
-            navigatorKey.currentState.pop(action.screen);
-            break;
-          case ScreenAction.push:
-            navigatorKey.currentState.pushNamed(action.screen);
-            break;
-          case ScreenAction.replace:
-            navigatorKey.currentState.pushReplacementNamed(action.screen);
-            break;
-          case ScreenAction.remove:
-            throw 'not implemented: ${action.screenAction}';
-            break;
-        }
+        navigatorKey.currentState.pop(action.url);
       } else {
         next(action);
       }
     } else if (action is SetCurrentUserAction) {
       next(action);
-      if (store.state.screenState.currentScreen.name != Screens.ApplicationScreen) {
-        navigatorKey.currentState.pushReplacementNamed(Screens.ApplicationScreen);
+      if (store.state.routerState.route != Routes.ApplicationScreen) {
+        navigatorKey.currentState.pushReplacementNamed(Routes.ApplicationScreen);
       }
     }
   };

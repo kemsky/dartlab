@@ -1,7 +1,7 @@
 import 'package:dart_lab/components/application_screen.dart';
 import 'package:dart_lab/components/setup_screen.dart';
 import 'package:dart_lab/components/splash_screen.dart';
-import 'package:dart_lab/screens.dart';
+import 'package:dart_lab/routes.dart';
 import 'package:dart_lab/state/actions.dart';
 import 'package:dart_lab/state/state.dart';
 import 'package:flutter/material.dart';
@@ -32,8 +32,8 @@ class Application extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new StoreConnector<AppState, ScreensState>(
-        converter: (store) => store.state.screenState,
+    return new StoreConnector<AppState, RouterState>(
+        converter: (store) => store.state.routerState,
         builder: (context, router) {
           return new MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -65,11 +65,11 @@ class Application extends StatelessWidget {
             navigatorObservers: [this.observer],
             navigatorKey: navigatorKey,
             routes: <String, WidgetBuilder>{
-              Screens.SplashScreen: (BuildContext context) => new SplashScreen(),
-              Screens.SetupScreen: (BuildContext context) => new SetupScreen(),
-              Screens.ApplicationScreen: (BuildContext context) => new ApplicationScreen(),
+              Routes.SplashScreen: (BuildContext context) => new SplashScreen(),
+              Routes.SetupScreen: (BuildContext context) => new SetupScreen(),
+              Routes.ApplicationScreen: (BuildContext context) => new ApplicationScreen(),
             },
-            initialRoute: router.currentScreen.name,
+            initialRoute: router.route,
           );
         });
   }
@@ -86,25 +86,25 @@ class RouteObserver extends NavigatorObserver
   @override
   void didPop(Route route, Route previousRoute) {
     this.logger.info('screen didPop: $route ${route.settings.isInitialRoute}');
-    this.store.dispatch(SetScreenAction(route.settings.name, ScreenAction.pop , isInitialScreen: route.settings.isInitialRoute, sync: false));
+    this.store.dispatch(SetScreenAction(route.settings.name, NavigatorAction.pop , isInitialRoute: route.settings.isInitialRoute, sync: false));
   }
 
   @override
   void didPush(Route route, Route previousRoute) {
     this.logger.info('screen didPush: $route ${route.settings.isInitialRoute}');
-    this.store.dispatch(SetScreenAction(route.settings.name, ScreenAction.push, isInitialScreen: route.settings.isInitialRoute, sync: false));
+    this.store.dispatch(SetScreenAction(route.settings.name, NavigatorAction.push, isInitialRoute: route.settings.isInitialRoute, sync: false));
   }
 
   @override
   void didRemove(Route route, Route previousRoute) {
     this.logger.info('screen didRemove: $route ${route.settings.isInitialRoute}');
-    this.store.dispatch(SetScreenAction(route.settings.name, ScreenAction.remove, isInitialScreen: route.settings.isInitialRoute, sync: false));
+    this.store.dispatch(SetScreenAction(route.settings.name, NavigatorAction.remove, isInitialRoute: route.settings.isInitialRoute, sync: false));
   }
 
   @override
   void didReplace({Route newRoute, Route oldRoute}) {
     this.logger.info('screen didReplace: $newRoute ${newRoute.settings.isInitialRoute}');
-    this.store.dispatch(SetScreenAction(newRoute.settings.name, ScreenAction.replace, isInitialScreen: newRoute.settings.isInitialRoute, sync: false));
+    this.store.dispatch(SetScreenAction(newRoute.settings.name, NavigatorAction.replace, isInitialRoute: newRoute.settings.isInitialRoute, sync: false));
   }
 
   @override

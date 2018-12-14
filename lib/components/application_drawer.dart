@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 class ApplicationDrawerModel {
-  final ScreenState currentRoute;
+  final RouterState currentRoute;
   final GitLabCurrentUser currentUser;
 
   ApplicationDrawerModel(this.currentRoute, this.currentUser);

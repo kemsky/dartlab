@@ -9,13 +9,13 @@ import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 
 class SetCurrentUserAction {
-  final GitLabCurrentUser payload;
+  final GitLabCurrentUser currentUser;
 
-  SetCurrentUserAction(this.payload);
+  SetCurrentUserAction(this.currentUser);
 
   @override
   String toString() {
-    return 'SetCurrentUserAction{payload: $payload}';
+    return 'SetCurrentUserAction{payload: $currentUser}';
   }
 }
 
@@ -38,33 +38,26 @@ class SetPackageInfoAction {
   }
 }
 
-enum ScreenAction {
-  push,
-  pop,
-  remove,
-  replace
-}
+enum NavigatorAction { push, pop, remove, replace }
 
 class SetScreenAction {
-  final String screen;
+  final String url;
   final bool sync;
-  final bool isInitialScreen;
-  final ScreenAction screenAction;
+  final bool isInitialRoute;
+  final NavigatorAction navigatorAction;
 
-  SetScreenAction(this.screen, this.screenAction, {this.sync=true, this.isInitialScreen=false });
+  SetScreenAction(this.url, this.navigatorAction, {this.sync = true, this.isInitialRoute = false});
 
   @override
   String toString() {
-    return 'SetScreenAction{screen: $screen, sync: $sync, isInitialScreen: $isInitialScreen, screenAction: $screenAction}';
+    return 'SetScreenAction{url: $url, sync: $sync, isInitialScreen: $isInitialRoute, navigatorAction: $navigatorAction}';
   }
 }
 
 ThunkAction<AppState> getCurrentUserAction = (Store<AppState> store) async {
   final Logger logger = new Logger('getCurrentUserAction');
 
-  new GitLabApi(store.state.host, store.state.token)
-      .getCurrentUser()
-      .doOnData((user) {
+  new GitLabApi(store.state.host, store.state.token).getCurrentUser().doOnData((user) {
     logger.info('success ${user.last_sign_in_at}');
     store.dispatch(new SetCurrentUserAction(user));
   }).listen((data) {});

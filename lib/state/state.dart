@@ -1,6 +1,5 @@
 library state;
 
-import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dart_lab/components/application_drawer.dart';
@@ -25,28 +24,17 @@ abstract class ApplicationInfo implements Built<ApplicationInfo, ApplicationInfo
   factory ApplicationInfo([updates(ApplicationInfoBuilder b)]) =_$ApplicationInfo;
 }
 
-abstract class ScreenState implements Built<ScreenState, ScreenStateBuilder> {
-  static Serializer<ScreenState> get serializer => _$screenStateSerializer;
+abstract class RouterState implements Built<RouterState, RouterStateBuilder> {
+  static Serializer<RouterState> get serializer => _$routerStateSerializer;
 
-  String get name;
+  String get url;
 
-  bool get isInitialScreen;
+  @memoized
+  String get route => url.split('/').first;
 
-  ScreenState._();
+  RouterState._();
 
-  factory ScreenState([updates(ScreenStateBuilder b)]) =_$ScreenState;
-}
-
-abstract class ScreensState implements Built<ScreensState, ScreensStateBuilder> {
-  static Serializer<ScreensState> get serializer => _$screensStateSerializer;
-
-  BuiltList<ScreenState> get screens;
-
-  ScreenState get currentScreen => screens.last;
-
-  ScreensState._();
-
-  factory ScreensState([updates(ScreensStateBuilder b)]) =_$ScreensState;
+  factory RouterState([updates(RouterStateBuilder b)]) =_$RouterState;
 }
 
 abstract class AppState implements Built<AppState, AppStateBuilder> {
@@ -59,7 +47,7 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
 
   String get title;
 
-  ScreensState get screenState;
+  RouterState get routerState;
 
   String get host;
 
@@ -75,20 +63,15 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
       builder.applicationInfo.appName = '';
       builder.host = dev_host;
       builder.token = dev_token;
-      builder.screenState.update((builder){
-        builder.screens.update((builder) {
-          builder.add(ScreenState((builder){
-            builder.name = '/';
-            builder.isInitialScreen = true;
-          }));
-        });
+      builder.routerState.update((builder){
+         builder.url = '/';
       });
     });
   }
 
   @memoized
   ApplicationDrawerModel getApplicationDrawerModel() {
-    return ApplicationDrawerModel(this.screenState.currentScreen, this.currentUser);
+    return ApplicationDrawerModel(this.routerState, this.currentUser);
   }
 
   AppState._();
