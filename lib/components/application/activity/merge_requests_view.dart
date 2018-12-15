@@ -18,6 +18,8 @@ class MergeRequestsView extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = TabController(length: 2, vsync: Scaffold.of(context));
 
+    controller.index = this.currentRoute.isChildOf(Routes.MergeRequestsCreated) ? 0 : 1;
+
     controller.addListener(() {
       if (controller.indexIsChanging) {
         StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(TabBarRoutes[controller.index]));
@@ -25,8 +27,7 @@ class MergeRequestsView extends StatelessWidget {
     });
 
     return new DefaultTabController(
-      length: 2,
-      initialIndex: this.currentRoute.isChildOf(Routes.MergeRequestsCreated) ? 0 : 1,
+      length: controller.length,
       child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         Material(
             elevation: 5,

@@ -18,6 +18,8 @@ class TodosView extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = TabController(length: 2, vsync: Scaffold.of(context));
 
+    controller.index = this.currentRoute.isChildOf(Routes.TodosPending) ? 0 : 1;
+
     controller.addListener(() {
       if (controller.indexIsChanging) {
         StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(TabBarRoutes[controller.index]));
@@ -25,7 +27,7 @@ class TodosView extends StatelessWidget {
     });
 
     return new DefaultTabController(
-      length: 2,
+      length: controller.length,
       initialIndex: this.currentRoute.isChildOf(Routes.TodosDone) ? 0 : 1,
       child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         Material(
