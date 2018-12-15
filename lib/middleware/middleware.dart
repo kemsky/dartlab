@@ -36,7 +36,7 @@ Middleware<AppState> _setCurrentRoute() {
       }
     } else if (action is SetCurrentUserAction) {
       next(action);
-      if (store.state.routerState.appRoute != Routes.SetupScreen) {
+      if (store.state.routerState.appRoute == Routes.SplashScreen) {
         navigatorKey.currentState.pushReplacementNamed(Routes.SetupScreen.route);
       }
     }

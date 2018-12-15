@@ -43,7 +43,7 @@ StoreConnector<AppState, ApplicationDrawerModel> applicationDrawer() {
                             icon: Icon(Icons.exit_to_app),
                             color: Colors.white,
                             onPressed: () {
-                              Navigator.pop(context);
+                              StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(Routes.SetupScreen, drawer: true));
                             })),
                   )
                 ],
@@ -55,7 +55,6 @@ StoreConnector<AppState, ApplicationDrawerModel> applicationDrawer() {
                     title: Text('Activity', style: TextStyle(fontWeight: FontWeight.bold)),
                     selected: model.currentRoute.appRoute.url.startsWith(Routes.AppActivity.url),
                     onTap: () {
-                      Navigator.pop(context);
                       StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(Routes.AppActivity, drawer: true));
                     },
                   )),
@@ -66,7 +65,6 @@ StoreConnector<AppState, ApplicationDrawerModel> applicationDrawer() {
                     title: Text('Projects', style: TextStyle(fontWeight: FontWeight.bold)),
                     selected: model.currentRoute.appRoute.url.startsWith(Routes.AppProjects.url),
                     onTap: () {
-                      Navigator.pop(context);
                       StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(Routes.AppProjects, drawer: true));
                     },
                   )),
@@ -78,7 +76,6 @@ StoreConnector<AppState, ApplicationDrawerModel> applicationDrawer() {
                   title: Text('About', style: TextStyle(fontWeight: FontWeight.bold)),
                   selected: model.currentRoute.appRoute == Routes.AppAbout,
                   onTap: () {
-                    Navigator.pop(context);
                     StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(Routes.AppAbout, drawer: true));
                   },
                 ),
