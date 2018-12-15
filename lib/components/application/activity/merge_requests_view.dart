@@ -1,8 +1,5 @@
 import 'package:dart_lab/routes.dart';
-import 'package:dart_lab/state/actions.dart';
-import 'package:dart_lab/state/state.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 
 class MergeRequestsView extends StatelessWidget {
   static final Map<int, AppRoute> TabBarRoutes = {
