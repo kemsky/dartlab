@@ -1,5 +1,6 @@
 library actions;
 
+import 'package:dart_lab/routes.dart';
 import 'package:dart_lab/state/state.dart';
 import 'package:dart_lab/webapi/model/gitlab_current_user.dart';
 import 'package:dart_lab/webapi/gitlab_api.dart';
@@ -40,24 +41,17 @@ class SetPackageInfoAction {
 
 enum NavigatorAction { push, pop, remove, replace }
 
-class SetScreenAction {
-  final String url;
+class SetRouteAction {
+  final AppRoute appRoute;
   final bool sync;
   final bool isInitialRoute;
   final NavigatorAction navigatorAction;
-  String get route {
-    if (url == '/') {
-      return '/';
-    } else {
-      return url.split('/').firstWhere((element) => element.length > 0);
-    }
-  }
 
-  SetScreenAction(this.url, this.navigatorAction, {this.sync = true, this.isInitialRoute = false});
+  SetRouteAction(this.appRoute, {this.navigatorAction = NavigatorAction.replace, this.sync = true, this.isInitialRoute = false});
 
   @override
   String toString() {
-    return 'SetScreenAction{url: $url, sync: $sync, isInitialScreen: $isInitialRoute, navigatorAction: $navigatorAction}';
+    return 'SetRouteAction{appRoute: $appRoute, sync: $sync, isInitialRoute: $isInitialRoute, navigatorAction: $navigatorAction}';
   }
 }
 

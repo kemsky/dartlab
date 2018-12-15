@@ -4,10 +4,10 @@ import 'package:dart_lab/state/actions.dart';
 import 'package:dart_lab/state/state.dart';
 
 AppState appReducer(AppState previous, dynamic action) {
-  if (action is SetScreenAction && !action.isInitialRoute) {
+  if (action is SetRouteAction && !action.isInitialRoute) {
     return previous.rebuild((builder) {
       builder.routerState.update((builder) {
-        builder.url = action.url;
+        builder.url = action.appRoute.defaultUrl;
       });
       print(builder.routerState.build());
     });

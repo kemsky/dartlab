@@ -1,3 +1,5 @@
+import 'package:dart_lab/routes.dart';
+import 'package:dart_lab/state/actions.dart';
 import 'package:dart_lab/state/state.dart';
 import 'package:dart_lab/webapi/model/gitlab_current_user.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +53,7 @@ StoreConnector<AppState, ApplicationDrawerModel> applicationDrawer() {
                 title: Text('Activity', style: TextStyle(fontWeight: FontWeight.bold)),
                 onTap: () {
                   Navigator.pop(context);
+                  StoreProvider.of(context).dispatch(new SetRouteAction(Routes.ApplicationActivity));
                 },
               ),
               ListTile(
@@ -58,6 +61,7 @@ StoreConnector<AppState, ApplicationDrawerModel> applicationDrawer() {
                 title: Text('Projects', style: TextStyle(fontWeight: FontWeight.bold)),
                 onTap: () {
                   Navigator.pop(context);
+                  StoreProvider.of(context).dispatch(new SetRouteAction(Routes.ApplicationProjects));
                 },
               ),
               Divider(),
@@ -66,6 +70,7 @@ StoreConnector<AppState, ApplicationDrawerModel> applicationDrawer() {
                 title: Text('About', style: TextStyle(fontWeight: FontWeight.bold)),
                 onTap: () {
                   Navigator.pop(context);
+                  StoreProvider.of(context).dispatch(new SetRouteAction(Routes.ApplicationAbout));
                 },
               ),
             ],

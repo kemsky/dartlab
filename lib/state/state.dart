@@ -3,6 +3,7 @@ library state;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dart_lab/components/application_drawer.dart';
+import 'package:dart_lab/routes.dart';
 import 'package:dart_lab/webapi/model/gitlab_current_user.dart';
 
 part 'state.g.dart';
@@ -30,21 +31,8 @@ abstract class RouterState implements Built<RouterState, RouterStateBuilder> {
   String get url;
 
   @memoized
-  String get route {
-    if (url == '/') {
-      return '/';
-    } else {
-      return url.split('/').firstWhere((element) => element.length > 0);
-    }
-  }
-
-  @memoized
-  List<String> get path {
-    if (url == '/') {
-      return [];
-    } else {
-      return url.split('/').where((element) => element.length > 0).skip(1);
-    }
+  AppRoute get appRoute {
+    return Routes.map[this.url];
   }
 
   RouterState._();

@@ -1,5 +1,6 @@
 import 'package:dart_lab/components/application.dart';
 import 'package:dart_lab/middleware/middleware.dart';
+import 'package:dart_lab/routes.dart';
 import 'package:dart_lab/state/actions.dart';
 import 'package:dart_lab/state/reducers.dart';
 import 'package:dart_lab/state/state.dart';
@@ -18,6 +19,12 @@ void main(List<String> arguments) {
   });
 
   _logger.info("Starting application...");
+  print(Routes.SplashScreen);
+  print(Routes.SetupScreen);
+  print(Routes.ApplicationScreen);
+  print('${Routes.ApplicationActivity.isBranch}');
+  print('${Routes.ApplicationProjects.isBranch}');
+  print('${Routes.ApplicationAbout.isBranch}');
 
   final dev_host = arguments.length == 2 ? arguments[0] : null;
   final dev_token = arguments.length == 2 ? arguments[1] : null;
