@@ -5,12 +5,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 class MergeRequestsView extends StatelessWidget {
+  static final Map<int, AppRoute> TabBarRoutes = {
+    0: Routes.MergeRequestsCreated,
+    1: Routes.MergeRequestsAssigned,
+  };
+
   final AppRoute currentRoute;
 
   MergeRequestsView(this.currentRoute);
 
   @override
   Widget build(BuildContext context) {
+    final controller = TabController(length: 2, vsync: Scaffold.of(context));
+
+    controller.addListener(() {
+      if (controller.indexIsChanging) {
+        StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(TabBarRoutes[controller.index]));
+      }
+    });
+
     return new DefaultTabController(
       length: 2,
       initialIndex: this.currentRoute.isChildOf(Routes.MergeRequestsCreated) ? 0 : 1,
@@ -19,21 +32,14 @@ class MergeRequestsView extends StatelessWidget {
             elevation: 5,
             color: Theme.of(context).primaryColor,
             child: TabBar(
+              controller: controller,
               tabs: [
-                GestureDetector(
-                    child: Tab(
-                      text: Routes.MergeRequestsCreated.name.toUpperCase(),
-                    ),
-                    onTap: () {
-                      StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(Routes.MergeRequestsCreated));
-                    }),
-                GestureDetector(
-                    child: Tab(
-                      text: Routes.MergeRequestsAssigned.name.toUpperCase(),
-                    ),
-                    onTap: () {
-                      StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(Routes.MergeRequestsAssigned));
-                    }),
+                Tab(
+                  text: Routes.MergeRequestsCreated.name.toUpperCase(),
+                ),
+                Tab(
+                  text: Routes.MergeRequestsAssigned.name.toUpperCase(),
+                ),
               ],
             )),
       ]),

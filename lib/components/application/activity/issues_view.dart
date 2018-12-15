@@ -5,12 +5,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 class IssuesView extends StatelessWidget {
+  static final Map<int, AppRoute> TabBarRoutes = {
+    0: Routes.IssuesCreated,
+    1: Routes.IssuesAssigned,
+  };
+
   final AppRoute currentRoute;
 
   IssuesView(this.currentRoute);
 
   @override
   Widget build(BuildContext context) {
+    final controller = TabController(length: 2, vsync: Scaffold.of(context));
+
+    controller.addListener(() {
+      if(controller.indexIsChanging) {
+        StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(TabBarRoutes[controller.index]));
+      }
+    });
+
     return new DefaultTabController(
       length: 2,
       initialIndex: this.currentRoute.isChildOf(Routes.IssuesCreated) ? 0 : 1,
@@ -19,21 +32,14 @@ class IssuesView extends StatelessWidget {
             elevation: 5,
             color: Theme.of(context).primaryColor,
             child: TabBar(
+              controller: controller,
               tabs: [
-                GestureDetector(
-                    child: Tab(
-                      text: Routes.IssuesCreated.name.toUpperCase(),
-                    ),
-                    onTap: () {
-                      StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(Routes.IssuesCreated));
-                    }),
-                GestureDetector(
-                    child: Tab(
-                      text: Routes.IssuesAssigned.name.toUpperCase(),
-                    ),
-                    onTap: () {
-                      StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(Routes.IssuesAssigned));
-                    }),
+                Tab(
+                  text: Routes.IssuesCreated.name.toUpperCase(),
+                ),
+                Tab(
+                  text: Routes.IssuesAssigned.name.toUpperCase(),
+                ),
               ],
             )),
       ]),
