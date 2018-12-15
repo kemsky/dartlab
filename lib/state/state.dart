@@ -30,12 +30,10 @@ abstract class RouterState implements Built<RouterState, RouterStateBuilder> {
 
   String get url;
 
-  @memoized
   AppRoute get appRoute {
     return Routes.map[this.url];
   }
 
-  @memoized
   String get route => appRoute.route;
 
   RouterState._();
@@ -75,7 +73,6 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
     });
   }
 
-  @memoized
   ApplicationDrawerModel getApplicationDrawerModel() {
     return ApplicationDrawerModel(this.routerState, this.currentUser);
   }

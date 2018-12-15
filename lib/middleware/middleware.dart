@@ -21,14 +21,14 @@ List<Middleware<AppState>> createAppStateMiddleware() {
 Middleware<AppState> _setCurrentRoute() {
   return (Store<AppState> store, action, NextDispatcher next) {
     if (action is SetRouteAction) {
-      if (action.sync) {
-        if(action.appRoute.route != store.state.routerState.appRoute.route) {
-          navigatorKey.currentState.pushReplacementNamed(action.appRoute.route);
-        } else {
-          next(action);
-        }
-      } else {
+      var changed = action.appRoute.route != store.state.routerState.appRoute.route;
+
+      if (action.appRoute.defaultUrl != store.state.routerState.appRoute.url) {
         next(action);
+      }
+
+      if (changed && action.sync) {
+        navigatorKey.currentState.pushReplacementNamed(action.appRoute.route);
       }
     } else if (action is SetCurrentUserAction) {
       next(action);

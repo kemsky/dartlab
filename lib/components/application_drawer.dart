@@ -48,30 +48,40 @@ StoreConnector<AppState, ApplicationDrawerModel> applicationDrawer() {
                   )
                 ],
               ),
-              ListTile(
-                leading: const Icon(Icons.assessment, color: Colors.black),
-                title: Text('Activity', style: TextStyle(fontWeight: FontWeight.bold)),
-                onTap: () {
-                  Navigator.pop(context);
-                  StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(Routes.AppActivity));
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.format_list_bulleted, color: Colors.black),
-                title: Text('Projects', style: TextStyle(fontWeight: FontWeight.bold)),
-                onTap: () {
-                  Navigator.pop(context);
-                  StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(Routes.AppProjects));
-                },
-              ),
+              Container(
+                  decoration: new BoxDecoration(color: model.currentRoute.appRoute.isChildOf(Routes.AppActivity) ? Theme.of(context).selectedRowColor : Theme.of(context).scaffoldBackgroundColor),
+                  child: ListTile(
+                    leading: const Icon(Icons.assessment, color: Colors.black),
+                    title: Text('Activity', style: TextStyle(fontWeight: FontWeight.bold)),
+                    selected: model.currentRoute.appRoute.url.startsWith(Routes.AppActivity.url),
+                    onTap: () {
+                      Navigator.pop(context);
+                      StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(Routes.AppActivity));
+                    },
+                  )),
+              Container(
+                  decoration: new BoxDecoration(color: model.currentRoute.appRoute.isChildOf(Routes.AppProjects) ? Theme.of(context).selectedRowColor : Theme.of(context).scaffoldBackgroundColor),
+                  child: ListTile(
+                    leading: const Icon(Icons.format_list_bulleted, color: Colors.black),
+                    title: Text('Projects', style: TextStyle(fontWeight: FontWeight.bold)),
+                    selected: model.currentRoute.appRoute.url.startsWith(Routes.AppProjects.url),
+                    onTap: () {
+                      Navigator.pop(context);
+                      StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(Routes.AppProjects));
+                    },
+                  )),
               Divider(),
-              ListTile(
-                leading: const Icon(Icons.info, color: Colors.black),
-                title: Text('About', style: TextStyle(fontWeight: FontWeight.bold)),
-                onTap: () {
-                  Navigator.pop(context);
-                  StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(Routes.AppAbout));
-                },
+              Container(
+                decoration: new BoxDecoration(color: model.currentRoute.appRoute == Routes.AppAbout ? Theme.of(context).selectedRowColor : Theme.of(context).scaffoldBackgroundColor),
+                child: ListTile(
+                  leading: const Icon(Icons.info, color: Colors.black),
+                  title: Text('About', style: TextStyle(fontWeight: FontWeight.bold)),
+                  selected: model.currentRoute.appRoute == Routes.AppAbout,
+                  onTap: () {
+                    Navigator.pop(context);
+                    StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(Routes.AppAbout));
+                  },
+                ),
               ),
             ],
           ),

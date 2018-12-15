@@ -56,6 +56,10 @@ class AppRoute {
 
   String _url;
 
+  bool isChildOf(AppRoute parent) {
+    return this.url.startsWith(parent.url);
+  }
+
   AppRoute(String name, {String defaultUrl})
       : this.defaultUrl = defaultUrl ?? (name != '/' ? '/' + name : '/'),
         this.name = name,
