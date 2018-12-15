@@ -7,11 +7,18 @@ import 'package:reflectable/reflectable.dart';
 abstract class Routes {
   static final AppRoute SplashScreen = AppRoute('/');
   static final AppRoute SetupScreen = AppRoute('Setup');
-  static final AppRoute ApplicationScreen = AppRoute('Application', defaultUrl: '/Application/Activity');
+  static final AppRoute AppScreen = AppRoute('Application', defaultUrl: '/Application/Activity');
 
-  static final AppRoute ApplicationActivity = AppRoute.childOf('Activity', ApplicationScreen);
-  static final AppRoute ApplicationProjects = AppRoute.childOf('Projects', ApplicationScreen);
-  static final AppRoute ApplicationAbout = AppRoute.childOf('About', ApplicationScreen);
+  static final AppRoute AppActivity = AppRoute.childOf('Activity', AppScreen);
+  static final AppRoute AppActivityActivity = AppRoute.childOf('Activity', AppActivity);
+  static final AppRoute AppActivityIssues = AppRoute.childOf('Issues', AppActivity);
+  static final AppRoute AppActivityMergeRequests = AppRoute.childOf('MergeRequests', AppActivity);
+  static final AppRoute AppActivityTodos = AppRoute.childOf('Todos', AppActivity);
+
+
+  static final AppRoute AppProjects = AppRoute.childOf('Projects', AppScreen);
+
+  static final AppRoute AppAbout = AppRoute.childOf('About', AppScreen);
 
   static Map<String, AppRoute> map = new Map<String, AppRoute>();
 
@@ -72,6 +79,6 @@ class AppRoute {
 
   @override
   String toString() {
-    return 'RouteElement{name: $name, route: $route, defaultUrl: $defaultUrl, path: $path, children: $children}';
+    return 'AppRoute{name: $name, route: $route, defaultUrl: $defaultUrl, children: ${children.length}, parent: ${parent?.url}, url: $url}';
   }
 }

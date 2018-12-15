@@ -53,7 +53,7 @@ StoreConnector<AppState, ApplicationDrawerModel> applicationDrawer() {
                 title: Text('Activity', style: TextStyle(fontWeight: FontWeight.bold)),
                 onTap: () {
                   Navigator.pop(context);
-                  StoreProvider.of(context).dispatch(new SetRouteAction(Routes.ApplicationActivity));
+                  StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(Routes.AppActivity));
                 },
               ),
               ListTile(
@@ -61,7 +61,7 @@ StoreConnector<AppState, ApplicationDrawerModel> applicationDrawer() {
                 title: Text('Projects', style: TextStyle(fontWeight: FontWeight.bold)),
                 onTap: () {
                   Navigator.pop(context);
-                  StoreProvider.of(context).dispatch(new SetRouteAction(Routes.ApplicationProjects));
+                  StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(Routes.AppProjects));
                 },
               ),
               Divider(),
@@ -70,7 +70,7 @@ StoreConnector<AppState, ApplicationDrawerModel> applicationDrawer() {
                 title: Text('About', style: TextStyle(fontWeight: FontWeight.bold)),
                 onTap: () {
                   Navigator.pop(context);
-                  StoreProvider.of(context).dispatch(new SetRouteAction(Routes.ApplicationAbout));
+                  StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(Routes.AppAbout));
                 },
               ),
             ],

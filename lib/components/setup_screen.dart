@@ -1,4 +1,8 @@
+import 'package:dart_lab/routes.dart';
+import 'package:dart_lab/state/actions.dart';
+import 'package:dart_lab/state/state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 
 class SetupScreen extends StatelessWidget {
   @override
@@ -44,7 +48,9 @@ class SetupScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 16.0),
               child: new RaisedButton(
                 padding: const EdgeInsets.all(8.0),
-                onPressed: () {},
+                onPressed: () {
+                  StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(Routes.AppActivity));
+                },
                 child: new Text("LOGIN"),
               ),
             ),

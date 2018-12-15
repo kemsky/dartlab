@@ -67,7 +67,7 @@ class Application extends StatelessWidget {
             routes: <String, WidgetBuilder>{
               Routes.SplashScreen.route: (BuildContext context) => new SplashScreen(),
               Routes.SetupScreen.route: (BuildContext context) => new SetupScreen(),
-              Routes.ApplicationScreen.route: (BuildContext context) => new ApplicationScreen(),
+              Routes.AppScreen.route: (BuildContext context) => new ApplicationScreen(),
             },
             initialRoute: router.appRoute.route,
           );
@@ -85,25 +85,25 @@ class RouteObserver extends NavigatorObserver
 
   @override
   void didPop(Route route, Route previousRoute) {
-    this.logger.info('route pop: $route ${route.settings.isInitialRoute}');
+    this.logger.info('route pop: ${previousRoute?.settings?.name} => ${route.settings.name}');
     this.store.dispatch(SetRouteAction(Routes.map[route.settings.name], navigatorAction: NavigatorAction.pop , isInitialRoute: route.settings.isInitialRoute, sync: false));
   }
 
   @override
   void didPush(Route route, Route previousRoute) {
-    this.logger.info('route push: $route ${route.settings.isInitialRoute}');
+    this.logger.info('route push: ${previousRoute?.settings?.name} => ${route.settings.name}');
     this.store.dispatch(SetRouteAction(Routes.map[route.settings.name], navigatorAction: NavigatorAction.push, isInitialRoute: route.settings.isInitialRoute, sync: false));
   }
 
   @override
   void didRemove(Route route, Route previousRoute) {
-    this.logger.info('route remove: $route ${route.settings.isInitialRoute}');
+    this.logger.info('route remove: ${previousRoute?.settings?.name} => ${route.settings.name}');
     this.store.dispatch(SetRouteAction(Routes.map[route.settings.name], navigatorAction: NavigatorAction.remove, isInitialRoute: route.settings.isInitialRoute, sync: false));
   }
 
   @override
   void didReplace({Route newRoute, Route oldRoute}) {
-    this.logger.info('route replace: $newRoute ${newRoute.settings.isInitialRoute}');
+    this.logger.info('route replace: ${oldRoute?.settings?.name} => ${newRoute.settings.name}');
     this.store.dispatch(SetRouteAction(Routes.map[newRoute.settings.name], navigatorAction: NavigatorAction.replace, isInitialRoute: newRoute.settings.isInitialRoute, sync: false));
   }
 

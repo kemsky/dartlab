@@ -35,6 +35,9 @@ abstract class RouterState implements Built<RouterState, RouterStateBuilder> {
     return Routes.map[this.url];
   }
 
+  @memoized
+  String get route => appRoute.route;
+
   RouterState._();
 
   factory RouterState([updates(RouterStateBuilder b)]) =_$RouterState;
