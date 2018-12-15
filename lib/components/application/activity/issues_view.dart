@@ -2,6 +2,10 @@ import 'package:dart_lab/routes.dart';
 import 'package:flutter/material.dart';
 
 class IssuesView extends StatelessWidget {
+  final AppRoute currentRoute;
+
+  IssuesView(this.currentRoute);
+
   @override
   Widget build(BuildContext context) {
     return new DefaultTabController(

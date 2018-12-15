@@ -15,9 +15,13 @@ abstract class Routes {
   static final AppRoute ActivityIssues = AppRoute.childOf('Issues', AppActivity);
   static final AppRoute IssuesCreated = AppRoute.childOf('Created', ActivityIssues);
   static final AppRoute IssuesAssigned = AppRoute.childOf('Assigned', ActivityIssues);
-
   static final AppRoute ActivityMergeRequests = AppRoute.childOf('Merge Requests', AppActivity);
+  static final AppRoute MergeRequestsCreated = AppRoute.childOf('Created', ActivityMergeRequests);
+  static final AppRoute MergeRequestsAssigned = AppRoute.childOf('Assigned', ActivityMergeRequests);
   static final AppRoute ActivityTodos = AppRoute.childOf('Todos', AppActivity);
+  static final AppRoute TodosPending = AppRoute.childOf('Pending', ActivityTodos);
+  static final AppRoute TodosDone = AppRoute.childOf('Done', ActivityTodos);
+
 
 
   static final AppRoute AppProjects = AppRoute.childOf('Projects', AppScreen);

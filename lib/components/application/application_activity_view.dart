@@ -1,7 +1,7 @@
-import 'package:dart_lab/components/activity_view.dart';
-import 'package:dart_lab/components/issues_view.dart';
-import 'package:dart_lab/components/merge_requests_view.dart';
-import 'package:dart_lab/components/todos_view.dart';
+import 'package:dart_lab/components/application/activity/activity_view.dart';
+import 'package:dart_lab/components/application/activity/issues_view.dart';
+import 'package:dart_lab/components/application/activity/merge_requests_view.dart';
+import 'package:dart_lab/components/application/activity/todos_view.dart';
 import 'package:dart_lab/routes.dart';
 import 'package:dart_lab/state/actions.dart';
 import 'package:dart_lab/state/state.dart';
@@ -30,13 +30,13 @@ class ApplicationActivityView extends StatelessWidget {
     Widget body;
 
     if (currentRoute.isChildOf(Routes.ActivityActivity)) {
-      body = ActivityView();
+      body = ActivityView(currentRoute);
     } else if (currentRoute.isChildOf(Routes.ActivityIssues)) {
-      body = IssuesView();
+      body = IssuesView(currentRoute);
     } else if (currentRoute.isChildOf(Routes.ActivityMergeRequests)) {
-      body = MergeRequestsView();
+      body = MergeRequestsView(currentRoute);
     } else if (currentRoute.isChildOf(Routes.ActivityTodos)) {
-      body = TodosView();
+      body = TodosView(currentRoute);
     } else {
       body = Text('unknown route: $currentRoute');
     }

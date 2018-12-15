@@ -1,7 +1,7 @@
-import 'package:dart_lab/components/application_about_view.dart';
-import 'package:dart_lab/components/application_activity_view.dart';
-import 'package:dart_lab/components/application_drawer.dart';
-import 'package:dart_lab/components/application_projects_view.dart';
+import 'package:dart_lab/components/application/application_about_view.dart';
+import 'package:dart_lab/components/application/application_activity_view.dart';
+import 'package:dart_lab/components/application/application_drawer.dart';
+import 'package:dart_lab/components/application/application_projects_view.dart';
 import 'package:dart_lab/routes.dart';
 import 'package:dart_lab/state/state.dart';
 import 'package:flutter/material.dart';

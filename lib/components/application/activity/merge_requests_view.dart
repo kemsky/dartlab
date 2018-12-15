@@ -1,6 +1,11 @@
+import 'package:dart_lab/routes.dart';
 import 'package:flutter/material.dart';
 
 class MergeRequestsView extends StatelessWidget {
+  final AppRoute currentRoute;
+
+  MergeRequestsView(this.currentRoute);
+
   @override
   Widget build(BuildContext context) {
     return new DefaultTabController(
@@ -12,10 +17,10 @@ class MergeRequestsView extends StatelessWidget {
             child: TabBar(
               tabs: [
                 Tab(
-                  text: 'CREATED',
+                  text: Routes.MergeRequestsCreated.name.toUpperCase(),
                 ),
                 Tab(
-                  text: 'ASSIGNED',
+                  text: Routes.MergeRequestsAssigned.name.toUpperCase(),
                 ),
               ],
             )),
