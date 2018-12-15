@@ -22,9 +22,10 @@ abstract class Routes {
   static final AppRoute TodosPending = AppRoute.childOf('Pending', ActivityTodos);
   static final AppRoute TodosDone = AppRoute.childOf('Done', ActivityTodos);
 
-
-
-  static final AppRoute AppProjects = AppRoute.childOf('Projects', AppScreen);
+  static final AppRoute AppProjects = AppRoute.childOf('Projects', AppScreen, defaultPath: 'All');
+  static final AppRoute ProjectsAll = AppRoute.childOf('All', AppProjects);
+  static final AppRoute ProjectsMy = AppRoute.childOf('My Projects', AppProjects);
+  static final AppRoute ProjectsStarred = AppRoute.childOf('Starred', AppProjects);
 
   static final AppRoute AppAbout = AppRoute.childOf('About', AppScreen);
 
@@ -40,7 +41,7 @@ abstract class Routes {
     });
 
     Routes.map.forEach((url, route) {
-      assert (Routes.map.containsKey(route.defaultUrl), 'unknown url: \'${route.defaultUrl}\'');
+      assert(Routes.map.containsKey(route.defaultUrl), 'unknown url: \'${route.defaultUrl}\'');
     });
   }
 }
