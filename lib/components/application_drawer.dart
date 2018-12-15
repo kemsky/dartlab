@@ -56,7 +56,7 @@ StoreConnector<AppState, ApplicationDrawerModel> applicationDrawer() {
                     selected: model.currentRoute.appRoute.url.startsWith(Routes.AppActivity.url),
                     onTap: () {
                       Navigator.pop(context);
-                      StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(Routes.AppActivity));
+                      StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(Routes.AppActivity, drawer: true));
                     },
                   )),
               Container(
@@ -67,7 +67,7 @@ StoreConnector<AppState, ApplicationDrawerModel> applicationDrawer() {
                     selected: model.currentRoute.appRoute.url.startsWith(Routes.AppProjects.url),
                     onTap: () {
                       Navigator.pop(context);
-                      StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(Routes.AppProjects));
+                      StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(Routes.AppProjects, drawer: true));
                     },
                   )),
               Divider(),
@@ -79,7 +79,7 @@ StoreConnector<AppState, ApplicationDrawerModel> applicationDrawer() {
                   selected: model.currentRoute.appRoute == Routes.AppAbout,
                   onTap: () {
                     Navigator.pop(context);
-                    StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(Routes.AppAbout));
+                    StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(Routes.AppAbout, drawer: true));
                   },
                 ),
               ),

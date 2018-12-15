@@ -7,7 +7,7 @@ import 'package:reflectable/reflectable.dart';
 abstract class Routes {
   static final AppRoute SplashScreen = AppRoute('/');
   static final AppRoute SetupScreen = AppRoute('Setup');
-  static final AppRoute AppScreen = AppRoute('Application', defaultUrl: '/Application/Activity');
+  static final AppRoute AppScreen = AppRoute('Application', defaultUrl: '/Application/Activity/Activity');
 
   static final AppRoute AppActivity = AppRoute.childOf('Activity', AppScreen);
   static final AppRoute AppActivityActivity = AppRoute.childOf('Activity', AppActivity);

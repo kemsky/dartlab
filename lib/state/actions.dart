@@ -44,10 +44,11 @@ enum NavigatorAction { push, pop, remove, replace }
 class SetRouteAction {
   final AppRoute appRoute;
   final bool sync;
+  final bool drawer;
   final bool isInitialRoute;
   final NavigatorAction navigatorAction;
 
-  SetRouteAction(this.appRoute, {this.navigatorAction = NavigatorAction.replace, this.sync = true, this.isInitialRoute = false});
+  SetRouteAction(this.appRoute, {this.navigatorAction = NavigatorAction.replace, this.sync = true, this.drawer = false, this.isInitialRoute = false});
 
   @override
   String toString() {
