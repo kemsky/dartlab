@@ -7,24 +7,23 @@ import 'package:dart_lab/state/state.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:redux/redux.dart';
+import 'main.reflectable.dart';
 
 //todo: Add Error Reporting https://flutter.io/docs/cookbook/maintenance/error-reporting
 
 final Logger _logger = new Logger('main');
 
 void main(List<String> arguments) {
+  initializeReflectable();
+
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((LogRecord rec) {
     print('${rec.level.name}: [${rec.loggerName}]: ${rec.message}');
   });
 
   _logger.info("Starting application...");
-  print(Routes.SplashScreen);
-  print(Routes.SetupScreen);
-  print(Routes.ApplicationScreen);
-  print('${Routes.ApplicationActivity.isBranch}');
-  print('${Routes.ApplicationProjects.isBranch}');
-  print('${Routes.ApplicationAbout.isBranch}');
+
+  Routes.initialize();
 
   final dev_host = arguments.length == 2 ? arguments[0] : null;
   final dev_token = arguments.length == 2 ? arguments[1] : null;
