@@ -21,10 +21,6 @@ class ApplicationActivityView extends StatelessWidget {
 
   ApplicationActivityView(this.currentRoute, {Key key}) : super(key: key);
 
-  void onButtonPress(BuildContext context) {
-    StoreProvider.of<AppState>(context).dispatch(getCurrentUserAction);
-  }
-
   @override
   Widget build(BuildContext context) {
     Widget body;
@@ -51,11 +47,6 @@ class ApplicationActivityView extends StatelessWidget {
 
     return new Scaffold(
         body: body,
-        floatingActionButton: new FloatingActionButton(
-          onPressed: () => onButtonPress(context),
-          tooltip: 'Increment',
-          child: new Icon(Icons.add),
-        ),
         // This trailing comma makes
         bottomNavigationBar: new BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
