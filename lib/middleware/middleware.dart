@@ -28,11 +28,7 @@ Middleware<AppState> _setCurrentRoute() {
       }
 
       if (changed && action.sync) {
-        if (action.drawer) {
-          navigatorKey.currentState.popAndPushNamed(action.appRoute.route);
-        } else {
-          navigatorKey.currentState.pushReplacementNamed(action.appRoute.route);
-        }
+        navigatorKey.currentState.pushReplacementNamed(action.appRoute.route);
       }
     } else if (action is SetCurrentUserAction) {
       next(action);
