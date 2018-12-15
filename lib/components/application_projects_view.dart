@@ -1,4 +1,3 @@
-import 'package:dart_lab/components/application_drawer.dart';
 import 'package:dart_lab/state/actions.dart';
 import 'package:dart_lab/state/state.dart';
 import 'package:flutter/material.dart';
@@ -15,12 +14,6 @@ class ApplicationProjectsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      drawer: applicationDrawer(),
-      appBar: new AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: new Text('Projects'),
-      ),
       body: new Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.

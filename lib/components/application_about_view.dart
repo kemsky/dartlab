@@ -1,4 +1,3 @@
-import 'package:dart_lab/components/application_drawer.dart';
 import 'package:dart_lab/state/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -11,10 +10,6 @@ class ApplicationAboutView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      drawer: applicationDrawer(),
-      appBar: new AppBar(
-        title: new Text('About'),
-      ),
       body: new Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[

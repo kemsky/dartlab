@@ -49,8 +49,6 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
   @nullable
   GitLabCurrentUser get currentUser;
 
-  String get title;
-
   RouterState get routerState;
 
   String get host;
@@ -60,7 +58,6 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
   static AppState initial(String dev_host, String dev_token)
   {
     return AppState((builder) {
-      builder.title = 'DartLab';
       builder.applicationInfo.version = '';
       builder.applicationInfo.buildNumber = '';
       builder.applicationInfo.packageName = '';
