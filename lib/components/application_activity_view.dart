@@ -22,21 +22,24 @@ class ApplicationActivityView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        body: new Center(
-          child: new Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              new StoreConnector<AppState, AppState>(
-                  converter: (store) => store.state,
-                  builder: (context, state) {
-                    return new Text(
-                      'Activity!',
-                      style: Theme.of(context).textTheme.display1,
-                    );
-                  }),
-            ],
-          ),
-        ),
+        body: new StoreConnector<AppState, AppState>(
+            converter: (store) => store.state,
+            builder: (context, state) {
+              return new DefaultTabController(
+                length: 2,
+                child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+                  Material(
+                      color: Theme.of(context).primaryColor,
+                      child: TabBar(
+                        tabs: [
+                          Tab(icon: Icon(Icons.directions_car)),
+                          Tab(icon: Icon(Icons.directions_transit)),
+                        ],
+                      )),
+                  Container()
+                ]),
+              );
+            }),
         floatingActionButton: new FloatingActionButton(
           onPressed: () => onButtonPress(context),
           tooltip: 'Increment',
