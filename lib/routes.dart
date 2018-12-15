@@ -9,11 +9,11 @@ abstract class Routes {
   static final AppRoute SetupScreen = AppRoute('Setup');
   static final AppRoute AppScreen = AppRoute('Application', defaultUrl: '/Application/Activity/Activity');
 
-  static final AppRoute AppActivity = AppRoute.childOf('Activity', AppScreen);
+  static final AppRoute AppActivity = AppRoute.childOf('Activity', AppScreen, defaultPath: 'Activity');
 
   static final AppRoute ActivityActivity = AppRoute.childOf('Activity', AppActivity);
   static final AppRoute ActivityIssues = AppRoute.childOf('Issues', AppActivity);
-  static final AppRoute ActivityMergeRequests = AppRoute.childOf('MergeRequests', AppActivity);
+  static final AppRoute ActivityMergeRequests = AppRoute.childOf('Merge Requests', AppActivity);
   static final AppRoute ActivityTodos = AppRoute.childOf('Todos', AppActivity);
 
 
