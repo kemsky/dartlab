@@ -26,24 +26,21 @@ class MergeRequestsView extends StatelessWidget {
       }
     });
 
-    return new DefaultTabController(
-      length: controller.length,
-      child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        Material(
-            elevation: 5,
-            color: Theme.of(context).primaryColor,
-            child: TabBar(
-              controller: controller,
-              tabs: [
-                Tab(
-                  text: Routes.MergeRequestsCreated.name.toUpperCase(),
-                ),
-                Tab(
-                  text: Routes.MergeRequestsAssigned.name.toUpperCase(),
-                ),
-              ],
-            )),
-      ]),
-    );
+    return Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      Material(
+          elevation: 5,
+          color: Theme.of(context).primaryColor,
+          child: TabBar(
+            controller: controller,
+            tabs: [
+              Tab(
+                text: Routes.MergeRequestsCreated.name.toUpperCase(),
+              ),
+              Tab(
+                text: Routes.MergeRequestsAssigned.name.toUpperCase(),
+              ),
+            ],
+          )),
+    ]);
   }
 }

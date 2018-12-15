@@ -26,24 +26,21 @@ class IssuesView extends StatelessWidget {
       }
     });
 
-    return new DefaultTabController(
-      length: 2,
-      child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        Material(
-            elevation: 5,
-            color: Theme.of(context).primaryColor,
-            child: TabBar(
-              controller: controller,
-              tabs: [
-                Tab(
-                  text: Routes.IssuesCreated.name.toUpperCase(),
-                ),
-                Tab(
-                  text: Routes.IssuesAssigned.name.toUpperCase(),
-                ),
-              ],
-            )),
-      ]),
-    );
+    return Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      Material(
+          elevation: 5,
+          color: Theme.of(context).primaryColor,
+          child: TabBar(
+            controller: controller,
+            tabs: [
+              Tab(
+                text: Routes.IssuesCreated.name.toUpperCase(),
+              ),
+              Tab(
+                text: Routes.IssuesAssigned.name.toUpperCase(),
+              ),
+            ],
+          )),
+    ]);
   }
 }

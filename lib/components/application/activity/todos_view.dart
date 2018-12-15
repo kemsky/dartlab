@@ -26,25 +26,21 @@ class TodosView extends StatelessWidget {
       }
     });
 
-    return new DefaultTabController(
-      length: controller.length,
-      initialIndex: this.currentRoute.isChildOf(Routes.TodosDone) ? 0 : 1,
-      child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        Material(
-            elevation: 5,
-            color: Theme.of(context).primaryColor,
-            child: TabBar(
-              controller: controller,
-              tabs: [
-                Tab(
-                  text: Routes.TodosPending.name.toUpperCase(),
-                ),
-                Tab(
-                  text: Routes.TodosDone.name.toUpperCase(),
-                ),
-              ],
-            )),
-      ]),
-    );
+    return Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      Material(
+          elevation: 5,
+          color: Theme.of(context).primaryColor,
+          child: TabBar(
+            controller: controller,
+            tabs: [
+              Tab(
+                text: Routes.TodosPending.name.toUpperCase(),
+              ),
+              Tab(
+                text: Routes.TodosDone.name.toUpperCase(),
+              ),
+            ],
+          )),
+    ]);
   }
 }
