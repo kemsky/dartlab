@@ -1,3 +1,7 @@
+import 'package:dart_lab/components/activity_view.dart';
+import 'package:dart_lab/components/issues_view.dart';
+import 'package:dart_lab/components/merge_requests_view.dart';
+import 'package:dart_lab/components/todos_view.dart';
 import 'package:dart_lab/routes.dart';
 import 'package:dart_lab/state/actions.dart';
 import 'package:dart_lab/state/state.dart';
@@ -22,23 +26,20 @@ class ApplicationActivityView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        body: new StoreConnector<AppState, AppState>(
-            converter: (store) => store.state,
-            builder: (context, state) {
-              return new DefaultTabController(
-                length: 2,
-                child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  Material(
-                      color: Theme.of(context).primaryColor,
-                      child: TabBar(
-                        tabs: [
-                          Tab(icon: Icon(Icons.directions_car)),
-                          Tab(icon: Icon(Icons.directions_transit)),
-                        ],
-                      )),
-                  Container()
-                ]),
-              );
+        body: new StoreConnector<AppState, AppRoute>(
+            converter: (store) => store.state.routerState.appRoute,
+            builder: (context, appRoute) {
+              if (appRoute.isChildOf(Routes.ActivityActivity)) {
+                return ActivityView();
+              } else if (appRoute.isChildOf(Routes.ActivityIssues)) {
+                return IssuesView();
+              } else if (appRoute.isChildOf(Routes.ActivityMergeRequests)) {
+                return MergeRequestsView();
+              } else if (appRoute.isChildOf(Routes.ActivityTodos)) {
+                return TodosView();
+              } else {
+                return Text('unknown route: $appRoute');
+              }
             }),
         floatingActionButton: new FloatingActionButton(
           onPressed: () => onButtonPress(context),

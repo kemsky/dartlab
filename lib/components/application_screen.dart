@@ -31,6 +31,7 @@ class ApplicationScreen extends StatelessWidget {
             drawer: applicationDrawer(),
             appBar: new AppBar(
               title: new Text(appRoute.name),
+              elevation: 0,
             ),
             body: widget,
           );
