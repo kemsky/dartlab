@@ -12,35 +12,19 @@ class MergeRequestsView extends StatelessWidget {
 
   final AppRoute currentRoute;
 
-  MergeRequestsView(this.currentRoute);
+  final List<String> items;
+
+  MergeRequestsView(this.currentRoute) : this.items = List<String>.generate(10000, (i) => "Item $i");
 
   @override
   Widget build(BuildContext context) {
-    final controller = TabController(length: 2, vsync: Scaffold.of(context));
-
-    controller.index = this.currentRoute.isChildOf(Routes.MergeRequestsCreated) ? 0 : 1;
-
-    controller.addListener(() {
-      if (controller.indexIsChanging) {
-        StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(TabBarRoutes[controller.index]));
-      }
-    });
-
-    return Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-      Material(
-          elevation: 5,
-          color: Theme.of(context).primaryColor,
-          child: TabBar(
-            controller: controller,
-            tabs: [
-              Tab(
-                text: Routes.MergeRequestsCreated.name.toUpperCase(),
-              ),
-              Tab(
-                text: Routes.MergeRequestsAssigned.name.toUpperCase(),
-              ),
-            ],
-          )),
-    ]);
+    return ListView.builder(
+      itemCount: items.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text('${items[index]}'),
+        );
+      },
+    );
   }
 }

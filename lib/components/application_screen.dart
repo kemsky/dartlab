@@ -3,13 +3,21 @@ import 'package:dart_lab/components/application/application_activity_view.dart';
 import 'package:dart_lab/components/application/application_drawer.dart';
 import 'package:dart_lab/components/application/application_projects_view.dart';
 import 'package:dart_lab/routes.dart';
+import 'package:dart_lab/state/actions.dart';
 import 'package:dart_lab/state/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:tuple/tuple.dart';
 
-@immutable
-class ApplicationScreen extends StatelessWidget {
-  ApplicationScreen({Key key}) : super(key: key);
+class ApplicationScreen extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _ApplicationScreen();
+  }
+}
+
+class _ApplicationScreen extends State<ApplicationScreen> with TickerProviderStateMixin {
+  _ApplicationScreen() : super();
 
   @override
   Widget build(BuildContext context) {
@@ -26,15 +34,48 @@ class ApplicationScreen extends StatelessWidget {
           } else {
             body = Text('unknown route: ${currentRoute}');
           }
-          return new Scaffold(
+
+          final appBarOptions = getBottom(currentRoute, context);
+
+          return Scaffold(
             drawer: applicationDrawer(currentRoute),
-            appBar: new AppBar(
-              title: new Text(getTitle(currentRoute)),
-              elevation: getElevation(currentRoute),
+            appBar: AppBar(
+              title: Text(appBarOptions.item2),
+              bottom: appBarOptions.item1,
             ),
             body: body,
           );
         });
+  }
+
+  Tuple2<Widget, String> getBottom(AppRoute currentRoute, BuildContext context) {
+    AppRoute route;
+    String title = 'unknown: ${currentRoute.name}';
+    if (currentRoute.isChildOf(Routes.ActivityIssues)) {
+      route = Routes.ActivityIssues;
+    } else if (currentRoute.isChildOf(Routes.ActivityMergeRequests)) {
+      route = Routes.ActivityMergeRequests;
+    } else if (currentRoute.isChildOf(Routes.ActivityTodos)) {
+      route = Routes.ActivityTodos;
+    } else if (currentRoute.isChildOf(Routes.ActivityActivity)) {
+      return Tuple2(null, Routes.ActivityActivity.name);
+    } else {
+      return Tuple2(null, title);
+    }
+
+    final children = route.children;
+
+    final controller = TabController(length: children.length, vsync: this);
+
+    controller.index = route.children.indexWhere((appRoute) => currentRoute.isChildOf(appRoute));
+
+    controller.addListener(() {
+      if (controller.indexIsChanging) {
+        StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(children[controller.index]));
+      }
+    });
+
+    return Tuple2(TabBar(controller: controller, tabs: children.map((route) => Tab(text: route.name.toUpperCase())).toList()), route.name);
   }
 
   String getTitle(AppRoute currentRoute) {
@@ -53,19 +94,5 @@ class ApplicationScreen extends StatelessWidget {
       title = 'unknown route: ${currentRoute.name}';
     }
     return title;
-  }
-
-  double getElevation(AppRoute currentRoute) {
-    double elevation = 5;
-    if (currentRoute.isChildOf(Routes.ActivityIssues)) {
-      elevation = 0;
-    } else if (currentRoute.isChildOf(Routes.ActivityMergeRequests)) {
-      elevation = 0;
-    } else if (currentRoute.isChildOf(Routes.ActivityTodos)) {
-      elevation = 0;
-    } else if (currentRoute.isChildOf(Routes.AppAbout)) {
-      elevation = 5;
-    }
-    return elevation;
   }
 }
