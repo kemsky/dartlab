@@ -1,13 +1,22 @@
 library actions;
 
+import 'package:dart_lab/database/database_client.dart';
+import 'package:dart_lab/database/database_manager.dart';
+import 'package:dart_lab/database/database_repository.dart';
+import 'package:dart_lab/database/model/application_user.dart';
+import 'package:dart_lab/database/user_repository.dart';
 import 'package:dart_lab/routes.dart';
 import 'package:dart_lab/state/state.dart';
 import 'package:dart_lab/webapi/model/gitlab_current_user.dart';
 import 'package:dart_lab/webapi/gitlab_api.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info/package_info.dart';
+import 'package:quiver/core.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
+import 'package:rxdart/rxdart.dart';
 
 class SetCurrentUserAction {
   final GitLabCurrentUser currentUser;
@@ -17,6 +26,17 @@ class SetCurrentUserAction {
   @override
   String toString() {
     return 'SetCurrentUserAction{payload: $currentUser}';
+  }
+}
+
+class SetApplicationUserAction {
+  final ApplicationUser applicationUser;
+
+  SetApplicationUserAction(this.applicationUser);
+
+  @override
+  String toString() {
+    return 'SetApplicationUserAction{applicationUser: $applicationUser}';
   }
 }
 
@@ -56,14 +76,35 @@ class SetRouteAction {
   }
 }
 
-ThunkAction<AppState> getCurrentUserAction = (Store<AppState> store) async {
-  final Logger logger = new Logger('getCurrentUserAction');
+ThunkAction<AppState> loginUser(String host, String token, BuildContext context) {
+  return (Store<AppState> store) async {
+    final Logger logger = new Logger('loginUser');
 
-  new GitLabApi(store.state.host, store.state.token).getCurrentUser().doOnData((user) {
-    logger.info('success ${user.last_sign_in_at}');
-    store.dispatch(new SetCurrentUserAction(user));
-  }).listen((data) {});
-};
+    new GitLabApi(host, token).getCurrentUser().flatMap((optionalRemoteUser) {
+      if (optionalRemoteUser.isEmpty) {
+        return Observable.just(Optional<ApplicationUser>.absent());
+      }
+      final remoteUser = optionalRemoteUser.value;
+      final repository = UserRepository(DatabaseRepository(DatabaseClient(DatabaseService())));
+      final user = ApplicationUser((builder) {
+        builder.token = token;
+        builder.host = host;
+        builder.avatarUrl = remoteUser.avatar_url;
+        builder.email = remoteUser.email;
+        builder.fullName = remoteUser.name;
+      });
+      return repository.save(user).map((_) => Optional.of(user));
+    }).listen((optionalUser) {
+      if (optionalUser.isNotEmpty) {
+        store.dispatch(SetApplicationUserAction(optionalUser.value));
+      } else {
+        Scaffold.of(context).showSnackBar(new SnackBar(
+          content: new Text("Invalid credentials"),
+        ));
+      }
+    });
+  };
+}
 
 ThunkAction<AppState> loadPackageInfoAction = (Store<AppState> store) async {
   final PackageInfo info = await PackageInfo.fromPlatform();

@@ -2,10 +2,7 @@ import 'package:dart_lab/components/application/projects/all_projects_view.dart'
 import 'package:dart_lab/components/application/projects/my_projects_view.dart';
 import 'package:dart_lab/components/application/projects/starred_projects_view.dart';
 import 'package:dart_lab/routes.dart';
-import 'package:dart_lab/state/actions.dart';
-import 'package:dart_lab/state/state.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 
 @immutable
 class ApplicationProjectsView extends StatelessWidget {
@@ -14,7 +11,7 @@ class ApplicationProjectsView extends StatelessWidget {
   ApplicationProjectsView(this.currentRoute, {Key key}) : super(key: key);
 
   void onButtonPress(BuildContext context) {
-    StoreProvider.of<AppState>(context).dispatch(getCurrentUserAction);
+    //StoreProvider.of<AppState>(context).dispatch(getCurrentUserAction);
   }
 
   @override

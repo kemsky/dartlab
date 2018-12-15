@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:logging/logging.dart';
 import 'package:redux/redux.dart';
+import 'package:tuple/tuple.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 
@@ -32,9 +33,9 @@ class Application extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new StoreConnector<AppState, RouterState>(
-        converter: (store) => store.state.routerState,
-        builder: (context, router) {
+    return new StoreConnector<AppState, Tuple3<RouterState, String, String>>(
+        converter: (store) => Tuple3<RouterState, String, String>(store.state.routerState, store.state.host, store.state.token),
+        builder: (context, tuple) {
           return new MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'DartLab',
@@ -66,10 +67,10 @@ class Application extends StatelessWidget {
             navigatorKey: navigatorKey,
             routes: <String, WidgetBuilder>{
               Routes.SplashScreen.route: (BuildContext context) => new SplashScreen(),
-              Routes.SetupScreen.route: (BuildContext context) => new SetupScreen(),
+              Routes.SetupScreen.route: (BuildContext context) => new SetupScreen(tuple.item2, tuple.item3),
               Routes.AppScreen.route: (BuildContext context) => new ApplicationScreen(),
             },
-            initialRoute: router.appRoute.route,
+            initialRoute: tuple.item1.appRoute.route,
           );
         });
   }

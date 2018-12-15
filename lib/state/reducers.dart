@@ -11,9 +11,13 @@ AppState appReducer(AppState previous, dynamic action) {
       });
       print(builder.routerState.build());
     });
-  } else if (action is SetCurrentUserAction) {
+  } else if (action is SetApplicationUserAction) {
     return previous.rebuild((builder) {
-      builder.currentUser.replace(action.currentUser);
+      if (action.applicationUser != null) {
+        builder.applicationUser.replace(action.applicationUser);
+      } else {
+        builder.applicationUser = null;
+      }
     });
   } else if (action is SetPackageInfoAction) {
     return previous.rebuild((builder) {

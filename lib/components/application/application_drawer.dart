@@ -1,21 +1,14 @@
+import 'package:dart_lab/database/model/application_user.dart';
 import 'package:dart_lab/routes.dart';
 import 'package:dart_lab/state/actions.dart';
 import 'package:dart_lab/state/state.dart';
-import 'package:dart_lab/webapi/model/gitlab_current_user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
-class ApplicationDrawerModel {
-  final RouterState currentRoute;
-  final GitLabCurrentUser currentUser;
-
-  ApplicationDrawerModel(this.currentRoute, this.currentUser);
-}
-
-StoreConnector<AppState, GitLabCurrentUser> applicationDrawer(AppRoute currentRoute) {
-  return new StoreConnector<AppState, GitLabCurrentUser>(
-      converter: (store) => store.state.currentUser,
-      builder: (context, currentUser) {
+StoreConnector<AppState, ApplicationUser> applicationDrawer(AppRoute currentRoute) {
+  return new StoreConnector<AppState, ApplicationUser>(
+      converter: (store) => store.state.applicationUser,
+      builder: (context, applicationUser) {
         return Drawer(
           // Add a ListView to the drawer. This ensures the user can scroll
           // through the options in the Drawer if there isn't enough vertical
@@ -30,10 +23,10 @@ StoreConnector<AppState, GitLabCurrentUser> applicationDrawer(AppRoute currentRo
                     currentAccountPicture: new CircleAvatar(
                       backgroundColor: Colors.white,
                       radius: 50,
-                      backgroundImage: NetworkImage(currentUser?.avatar_url ?? ''),
+                      backgroundImage: NetworkImage(applicationUser?.avatarUrl ?? ''),
                     ),
-                    accountName: Text(currentUser?.name ?? '', style: TextStyle(color: Colors.white)),
-                    accountEmail: Text(currentUser?.email ?? '', style: TextStyle(color: Colors.white)),
+                    accountName: Text(applicationUser?.fullName ?? '', style: TextStyle(color: Colors.white)),
+                    accountEmail: Text(applicationUser?.email ?? '', style: TextStyle(color: Colors.white)),
                   ),
                   new Align(
                     alignment: Alignment.topRight,

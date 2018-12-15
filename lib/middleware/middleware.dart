@@ -13,7 +13,7 @@ List<Middleware<AppState>> createAppStateMiddleware() {
   return [
     loggingMiddleware,
     TypedMiddleware<AppState, SetRouteAction>(setCurrentRoute),
-    TypedMiddleware<AppState, SetCurrentUserAction>(setCurrentRoute),
+    TypedMiddleware<AppState, SetApplicationUserAction>(setCurrentRoute),
     thunkMiddleware
   ];
 }
@@ -30,10 +30,12 @@ Middleware<AppState> _setCurrentRoute() {
       if (changed && action.sync) {
         navigatorKey.currentState.pushReplacementNamed(action.appRoute.route);
       }
-    } else if (action is SetCurrentUserAction) {
+    } else if (action is SetApplicationUserAction) {
       next(action);
-      if (store.state.routerState.appRoute == Routes.SplashScreen) {
+      if (action.applicationUser == null) {
         navigatorKey.currentState.pushReplacementNamed(Routes.SetupScreen.route);
+      } else {
+        navigatorKey.currentState.pushReplacementNamed(Routes.ActivityActivity.route);
       }
     }
   };

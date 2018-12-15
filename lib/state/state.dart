@@ -2,14 +2,14 @@ library state;
 
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:dart_lab/components/application/application_drawer.dart';
+import 'package:dart_lab/database/model/application_user.dart';
 import 'package:dart_lab/routes.dart';
 import 'package:dart_lab/webapi/model/gitlab_current_user.dart';
+import 'package:quiver/core.dart';
 
 part 'state.g.dart';
 
-abstract class ApplicationInfo implements Built<ApplicationInfo, ApplicationInfoBuilder>
-{
+abstract class ApplicationInfo implements Built<ApplicationInfo, ApplicationInfoBuilder> {
   static Serializer<ApplicationInfo> get serializer => _$applicationInfoSerializer;
 
   String get appName;
@@ -22,7 +22,7 @@ abstract class ApplicationInfo implements Built<ApplicationInfo, ApplicationInfo
 
   ApplicationInfo._();
 
-  factory ApplicationInfo([updates(ApplicationInfoBuilder b)]) =_$ApplicationInfo;
+  factory ApplicationInfo([updates(ApplicationInfoBuilder b)]) = _$ApplicationInfo;
 }
 
 abstract class RouterState implements Built<RouterState, RouterStateBuilder> {
@@ -38,7 +38,7 @@ abstract class RouterState implements Built<RouterState, RouterStateBuilder> {
 
   RouterState._();
 
-  factory RouterState([updates(RouterStateBuilder b)]) =_$RouterState;
+  factory RouterState([updates(RouterStateBuilder b)]) = _$RouterState;
 }
 
 abstract class AppState implements Built<AppState, AppStateBuilder> {
@@ -47,7 +47,7 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
   ApplicationInfo get applicationInfo;
 
   @nullable
-  GitLabCurrentUser get currentUser;
+  ApplicationUser get applicationUser;
 
   RouterState get routerState;
 
@@ -55,26 +55,24 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
 
   String get token;
 
-  static AppState initial(String dev_host, String dev_token)
-  {
+  static AppState initial(Optional<ApplicationUser> user, String host, String token) {
     return AppState((builder) {
       builder.applicationInfo.version = '';
       builder.applicationInfo.buildNumber = '';
       builder.applicationInfo.packageName = '';
       builder.applicationInfo.appName = '';
-      builder.host = dev_host;
-      builder.token = dev_token;
-      builder.routerState.update((builder){
-         builder.url = '/';
+      builder.host = host;
+      builder.token = token;
+      if (user.isNotEmpty) {
+        builder.applicationUser.replace(user.value);
+      }
+      builder.routerState.update((builder) {
+        builder.url = '/';
       });
     });
   }
 
-  ApplicationDrawerModel getApplicationDrawerModel() {
-    return ApplicationDrawerModel(this.routerState, this.currentUser);
-  }
-
   AppState._();
 
-  factory AppState([updates(AppStateBuilder b)]) =_$AppState;
+  factory AppState([updates(AppStateBuilder b)]) = _$AppState;
 }

@@ -10,7 +10,7 @@ abstract class ApplicationUser implements Built<ApplicationUser, ApplicationUser
 
   String get token;
 
-  String get url;
+  String get host;
 
   @nullable
   String get fullName;

@@ -61,6 +61,8 @@ class _ApplicationScreen extends State<ApplicationScreen> with TickerProviderSta
       route = Routes.AppProjects;
     } else if (currentRoute.isChildOf(Routes.ActivityActivity)) {
       return Tuple2(null, Routes.ActivityActivity.name);
+    } else if (currentRoute.isChildOf(Routes.AppAbout)) {
+      return Tuple2(null, Routes.AppAbout.name);
     } else {
       return Tuple2(null, title);
     }
