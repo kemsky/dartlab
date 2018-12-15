@@ -4,12 +4,19 @@ import 'package:flutter/material.dart';
 class ActivityView extends StatelessWidget {
   final AppRoute currentRoute;
 
-  ActivityView(this.currentRoute);
+  final List<String> items;
+
+  ActivityView(this.currentRoute) : this.items = List<String>.generate(10000, (i) => "Item $i");
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[Text('Issues')],
+    return ListView.builder(
+      itemCount: items.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text('${items[index]}'),
+        );
+      },
     );
   }
 }

@@ -30,7 +30,7 @@ class ApplicationScreen extends StatelessWidget {
             drawer: applicationDrawer(currentRoute),
             appBar: new AppBar(
               title: new Text(getTitle(currentRoute)),
-              elevation: 0,
+              elevation: getElevation(currentRoute),
             ),
             body: body,
           );
@@ -53,5 +53,19 @@ class ApplicationScreen extends StatelessWidget {
       title = 'unknown route: ${currentRoute.name}';
     }
     return title;
+  }
+
+  double getElevation(AppRoute currentRoute) {
+    double elevation = 5;
+    if (currentRoute.isChildOf(Routes.ActivityIssues)) {
+      elevation = 0;
+    } else if (currentRoute.isChildOf(Routes.ActivityMergeRequests)) {
+      elevation = 0;
+    } else if (currentRoute.isChildOf(Routes.ActivityTodos)) {
+      elevation = 0;
+    } else if (currentRoute.isChildOf(Routes.AppAbout)) {
+      elevation = 5;
+    }
+    return elevation;
   }
 }
