@@ -16,15 +16,15 @@ class ApplicationScreen extends StatelessWidget {
     return new StoreConnector<AppState, AppRoute>(
         converter: (store) => store.state.routerState.appRoute,
         builder: (context, currentRoute) {
-          Widget widget;
+          Widget body;
           if (currentRoute.isChildOf(Routes.AppActivity)) {
-            widget = ApplicationActivityView(currentRoute);
+            body = ApplicationActivityView(currentRoute);
           } else if (currentRoute.isChildOf(Routes.AppProjects)) {
-            widget = ApplicationProjectsView(currentRoute);
+            body = ApplicationProjectsView(currentRoute);
           } else if (currentRoute.isChildOf(Routes.AppAbout)) {
-            widget = ApplicationAboutView(currentRoute);
+            body = ApplicationAboutView(currentRoute);
           } else {
-            widget = Text('unknown route: ${currentRoute}');
+            body = Text('unknown route: ${currentRoute}');
           }
           return new Scaffold(
             drawer: applicationDrawer(currentRoute),
@@ -32,7 +32,7 @@ class ApplicationScreen extends StatelessWidget {
               title: new Text(getTitle(currentRoute)),
               elevation: 0,
             ),
-            body: widget,
+            body: body,
           );
         });
   }
