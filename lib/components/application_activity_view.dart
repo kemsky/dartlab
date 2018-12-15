@@ -17,7 +17,9 @@ class ApplicationActivityView extends StatelessWidget {
     3: Routes.ActivityTodos,
   };
 
-  ApplicationActivityView({Key key}) : super(key: key);
+  final AppRoute currentRoute;
+
+  ApplicationActivityView(this.currentRoute, {Key key}) : super(key: key);
 
   void onButtonPress(BuildContext context) {
     StoreProvider.of<AppState>(context).dispatch(getCurrentUserAction);
@@ -25,61 +27,59 @@ class ApplicationActivityView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget body;
+
+    if (currentRoute.isChildOf(Routes.ActivityActivity)) {
+      body = ActivityView();
+    } else if (currentRoute.isChildOf(Routes.ActivityIssues)) {
+      body = IssuesView();
+    } else if (currentRoute.isChildOf(Routes.ActivityMergeRequests)) {
+      body = MergeRequestsView();
+    } else if (currentRoute.isChildOf(Routes.ActivityTodos)) {
+      body = TodosView();
+    } else {
+      body = Text('unknown route: $currentRoute');
+    }
+
+    int bottomBarIndex = -1;
+
+    BottomBarRoutes.forEach((index, appRoute) {
+      if (currentRoute.isChildOf(appRoute)) {
+        bottomBarIndex = index;
+      }
+    });
+
     return new Scaffold(
-        body: new StoreConnector<AppState, AppRoute>(
-            converter: (store) => store.state.routerState.appRoute,
-            builder: (context, appRoute) {
-              if (appRoute.isChildOf(Routes.ActivityActivity)) {
-                return ActivityView();
-              } else if (appRoute.isChildOf(Routes.ActivityIssues)) {
-                return IssuesView();
-              } else if (appRoute.isChildOf(Routes.ActivityMergeRequests)) {
-                return MergeRequestsView();
-              } else if (appRoute.isChildOf(Routes.ActivityTodos)) {
-                return TodosView();
-              } else {
-                return Text('unknown route: $appRoute');
-              }
-            }),
+        body: body,
         floatingActionButton: new FloatingActionButton(
           onPressed: () => onButtonPress(context),
           tooltip: 'Increment',
           child: new Icon(Icons.add),
         ),
         // This trailing comma makes
-        bottomNavigationBar: new StoreConnector<AppState, AppRoute>(
-            converter: (store) => store.state.routerState.appRoute,
-            builder: (context, currentRoute) {
-              int currentIndex = -1;
-              BottomBarRoutes.forEach((index, appRoute) {
-                if (currentRoute.isChildOf(appRoute)) {
-                  currentIndex = index;
-                }
-              });
-              return new BottomNavigationBar(
-                  type: BottomNavigationBarType.fixed,
-                  currentIndex: currentIndex,
-                  onTap: (index) {
-                    StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(BottomBarRoutes[index]));
-                  },
-                  items: [
-                    new BottomNavigationBarItem(
-                      icon: new Icon(Icons.home),
-                      title: new Text(Routes.ActivityActivity.name),
-                    ),
-                    new BottomNavigationBarItem(
-                      icon: new Icon(Icons.build),
-                      title: new Text(Routes.ActivityIssues.name),
-                    ),
-                    new BottomNavigationBarItem(
-                      icon: new Icon(Icons.store),
-                      title: new Text(Routes.ActivityMergeRequests.name),
-                    ),
-                    new BottomNavigationBarItem(
-                      icon: new Icon(Icons.title),
-                      title: new Text(Routes.ActivityTodos.name),
-                    )
-                  ]);
-            }));
+        bottomNavigationBar: new BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            currentIndex: bottomBarIndex,
+            onTap: (index) {
+              StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(BottomBarRoutes[index]));
+            },
+            items: [
+              new BottomNavigationBarItem(
+                icon: new Icon(Icons.home),
+                title: new Text(Routes.ActivityActivity.name),
+              ),
+              new BottomNavigationBarItem(
+                icon: new Icon(Icons.build),
+                title: new Text(Routes.ActivityIssues.name),
+              ),
+              new BottomNavigationBarItem(
+                icon: new Icon(Icons.store),
+                title: new Text(Routes.ActivityMergeRequests.name),
+              ),
+              new BottomNavigationBarItem(
+                icon: new Icon(Icons.title),
+                title: new Text(Routes.ActivityTodos.name),
+              )
+            ]));
   }
 }

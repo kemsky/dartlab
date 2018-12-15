@@ -1,3 +1,4 @@
+import 'package:dart_lab/routes.dart';
 import 'package:dart_lab/state/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -5,7 +6,9 @@ import 'package:url_launcher/url_launcher.dart';
 
 @immutable
 class ApplicationAboutView extends StatelessWidget {
-  ApplicationAboutView({Key key}) : super(key: key);
+  final AppRoute currentRoute;
+
+  ApplicationAboutView(this.currentRoute, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

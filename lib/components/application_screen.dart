@@ -9,28 +9,27 @@ import 'package:flutter_redux/flutter_redux.dart';
 
 @immutable
 class ApplicationScreen extends StatelessWidget {
-
   ApplicationScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return new StoreConnector<AppState, AppRoute>(
         converter: (store) => store.state.routerState.appRoute,
-        builder: (context, appRoute) {
+        builder: (context, currentRoute) {
           Widget widget;
-          if (appRoute.isChildOf(Routes.AppActivity)) {
-            widget = ApplicationActivityView();
-          } else if (appRoute.isChildOf(Routes.AppProjects)) {
-            widget = ApplicationProjectsView();
-          } else if (appRoute.isChildOf(Routes.AppAbout)) {
-            widget = ApplicationAboutView();
+          if (currentRoute.isChildOf(Routes.AppActivity)) {
+            widget = ApplicationActivityView(currentRoute);
+          } else if (currentRoute.isChildOf(Routes.AppProjects)) {
+            widget = ApplicationProjectsView(currentRoute);
+          } else if (currentRoute.isChildOf(Routes.AppAbout)) {
+            widget = ApplicationAboutView(currentRoute);
           } else {
-            widget = Text('unknown route: ${appRoute}');
+            widget = Text('unknown route: ${currentRoute}');
           }
           return new Scaffold(
-            drawer: applicationDrawer(),
+            drawer: applicationDrawer(currentRoute),
             appBar: new AppBar(
-              title: new Text(appRoute.name),
+              title: new Text(currentRoute.name),
               elevation: 0,
             ),
             body: widget,

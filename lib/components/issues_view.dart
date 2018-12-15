@@ -1,3 +1,4 @@
+import 'package:dart_lab/routes.dart';
 import 'package:flutter/material.dart';
 
 class IssuesView extends StatelessWidget {
@@ -5,6 +6,7 @@ class IssuesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return new DefaultTabController(
       length: 2,
+      initialIndex: 0,
       child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
         Material(
             elevation: 5,
@@ -12,10 +14,10 @@ class IssuesView extends StatelessWidget {
             child: TabBar(
               tabs: [
                 Tab(
-                  text: 'CREATED',
+                  text: Routes.IssuesCreated.name.toUpperCase(),
                 ),
                 Tab(
-                  text: 'ASSIGNED',
+                  text: Routes.IssuesAssigned.name.toUpperCase(),
                 ),
               ],
             )),
