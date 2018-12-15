@@ -29,11 +29,29 @@ class ApplicationScreen extends StatelessWidget {
           return new Scaffold(
             drawer: applicationDrawer(currentRoute),
             appBar: new AppBar(
-              title: new Text(currentRoute.name),
+              title: new Text(getTitle(currentRoute)),
               elevation: 0,
             ),
             body: widget,
           );
         });
+  }
+
+  String getTitle(AppRoute currentRoute) {
+    String title;
+    if (currentRoute.isChildOf(Routes.ActivityActivity)) {
+      title = Routes.ActivityActivity.name;
+    } else if (currentRoute.isChildOf(Routes.ActivityIssues)) {
+      title = Routes.ActivityIssues.name;
+    } else if (currentRoute.isChildOf(Routes.ActivityMergeRequests)) {
+      title = Routes.ActivityMergeRequests.name;
+    } else if (currentRoute.isChildOf(Routes.ActivityTodos)) {
+      title = Routes.ActivityTodos.name;
+    } else if (currentRoute.isChildOf(Routes.AppAbout)) {
+      title = Routes.AppAbout.name;
+    } else {
+      title = 'unknown route: ${currentRoute.name}';
+    }
+    return title;
   }
 }
