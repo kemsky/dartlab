@@ -109,7 +109,7 @@ class UserMiddleWare {
               }
             });
           } else {
-            store.dispatch(LogoutUserAction());
+            store.dispatch(SetRouteAction(Routes.SetupScreen));
           }
         });
       } else if (action is AuthenticateUserAction) {

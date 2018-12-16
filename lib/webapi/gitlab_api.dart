@@ -19,9 +19,9 @@ class GitLabApi extends RestClient {
       path.add('user');
     });
 
-    return this
-        .execute(request)
-        .map((response) => Optional.of(parseJson(GitLabCurrentUser.serializer, response.body)))
-        .onErrorReturn(Optional.absent());
+    return this.execute(request).map((response) => Optional.of(parseJson(GitLabCurrentUser.serializer, response.body))).onErrorResume((e) {
+      _logger.info('error: $e');
+      return Observable.just(Optional<GitLabCurrentUser>.absent());
+    });
   }
 }
