@@ -4,8 +4,6 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dart_lab/database/model/application_user.dart';
 import 'package:dart_lab/routes.dart';
-import 'package:dart_lab/webapi/model/gitlab_current_user.dart';
-import 'package:quiver/core.dart';
 
 part 'state.g.dart';
 
@@ -51,11 +49,13 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
 
   RouterState get routerState;
 
+  ///Development only
   String get host;
 
+  ///Development only
   String get token;
 
-  static AppState initial(Optional<ApplicationUser> user, String host, String token) {
+  static AppState initial(String host, String token) {
     return AppState((builder) {
       builder.applicationInfo.version = '';
       builder.applicationInfo.buildNumber = '';
@@ -63,9 +63,6 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
       builder.applicationInfo.appName = '';
       builder.host = host;
       builder.token = token;
-      if (user.isNotEmpty) {
-        builder.applicationUser.replace(user.value);
-      }
       builder.routerState.update((builder) {
         builder.url = '/';
       });

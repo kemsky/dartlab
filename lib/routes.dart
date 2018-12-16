@@ -31,7 +31,7 @@ abstract class Routes {
 
   static Map<String, AppRoute> map = new Map<String, AppRoute>();
 
-  static void initialize() {
+  static void init() {
     //overcome lazy init
     ClassMirror mirror = reflector.reflectType(Routes);
     mirror.staticMembers.forEach((key, method) {

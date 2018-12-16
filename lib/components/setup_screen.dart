@@ -77,7 +77,7 @@ class _SetupScreen extends State<SetupScreen> {
                       return RaisedButton(
                         padding: const EdgeInsets.all(8.0),
                         onPressed: () {
-                          StoreProvider.of<AppState>(context).dispatch(loginUser(_host, _token, context));
+                          StoreProvider.of<AppState>(context).dispatch(AuthenticateUserAction(_host, _token, context));
                         },
                         child: Text("LOGIN"),
                       );

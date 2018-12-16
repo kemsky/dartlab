@@ -37,7 +37,7 @@ StoreConnector<AppState, ApplicationUser> applicationDrawer(AppRoute currentRout
                             color: Colors.white,
                             onPressed: () {
                               Navigator.pop(context);
-                              StoreProvider.of<AppState>(context).dispatch(new SetRouteAction(Routes.SetupScreen, drawer: true));
+                              StoreProvider.of<AppState>(context).dispatch(new LogoutUserAction());
                             })),
                   )
                 ],

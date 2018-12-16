@@ -17,6 +17,8 @@ abstract class DatabaseRepository {
 
   Observable<void> delete(String key);
 
+  Observable<void> reset();
+
   factory DatabaseRepository(DatabaseClient client) {
     return DatabaseRepositoryImpl(client);
   }
@@ -65,8 +67,17 @@ class DatabaseRepositoryImpl implements DatabaseRepository {
 
     final params = [key];
 
-    _logger.info('SQL: $statement');
+    _logger.info('SQL: $statement, params: $params');
 
     return this._client.query(statement, params);
+  }
+
+  @override
+  Observable<void> reset() {
+    final statement = 'DELETE FROM KeyValue';
+
+    _logger.info('SQL: $statement');
+
+    return this._client.query(statement);
   }
 }

@@ -2,6 +2,9 @@ library reducers;
 
 import 'package:dart_lab/state/actions.dart';
 import 'package:dart_lab/state/state.dart';
+import 'package:logging/logging.dart';
+
+final Logger _logger = Logger('Reducer');
 
 AppState appReducer(AppState previous, dynamic action) {
   if (action is SetRouteAction && !action.isInitialRoute) {
@@ -9,12 +12,16 @@ AppState appReducer(AppState previous, dynamic action) {
       builder.routerState.update((builder) {
         builder.url = action.appRoute.defaultUrl;
       });
-      print(builder.routerState.build());
+      _logger.info(builder.routerState.build());
     });
-  } else if (action is SetApplicationUserAction) {
+  } else if (action is UpdateUserAction) {
     return previous.rebuild((builder) {
-      if (action.applicationUser != null) {
-        builder.applicationUser.replace(action.applicationUser);
+      builder.applicationUser.replace(action.user);
+    });
+  } else if (action is LoginUserAction) {
+    return previous.rebuild((builder) {
+      if (action.user != null) {
+        builder.applicationUser.replace(action.user);
       } else {
         builder.applicationUser = null;
       }
@@ -22,10 +29,10 @@ AppState appReducer(AppState previous, dynamic action) {
   } else if (action is SetPackageInfoAction) {
     return previous.rebuild((builder) {
       builder.applicationInfo.update((builder) {
-        builder.appName = action.appName;
-        builder.buildNumber = action.buildNumber;
-        builder.version = action.version;
-        builder.packageName = action.packageName;
+        builder.appName = action.info.appName;
+        builder.buildNumber = action.info.buildNumber;
+        builder.version = action.info.version;
+        builder.packageName = action.info.packageName;
       });
     });
   } else {
