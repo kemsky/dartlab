@@ -26,7 +26,8 @@ class ApplicationAboutView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       CircleAvatar(
-                        child: Icon(Icons.account_circle),
+                        backgroundColor: Colors.white,
+                        child: Image.asset('assets/logo.png'),
                         radius: 35,
                       ),
                       SizedBox(height: 25),
@@ -66,10 +67,7 @@ class ApplicationAboutView extends StatelessWidget {
             title: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Alexander Turtsevich', style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text('main developer', style: TextStyle())
-                ]),
+                children: [Text('Alexander Turtsevich', style: TextStyle(fontWeight: FontWeight.bold)), Text('main developer', style: TextStyle())]),
             onTap: () {
               launch('https://github.com/kemsky/');
             },

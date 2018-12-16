@@ -109,7 +109,9 @@ class UserMiddleWare {
               }
             });
           } else {
-            store.dispatch(SetRouteAction(Routes.SetupScreen));
+            Observable.just(true).delay(Duration(seconds: 2)).listen((_) {
+              store.dispatch(SetRouteAction(Routes.SetupScreen));
+            });
           }
         });
       } else if (action is AuthenticateUserAction) {

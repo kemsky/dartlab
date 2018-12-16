@@ -40,7 +40,8 @@ class _SetupScreen extends State<SetupScreen> {
                 children: <Widget>[
                   Column(children: [
                     CircleAvatar(
-                      child: Icon(Icons.account_circle),
+                      backgroundColor: Colors.white,
+                      child: Image.asset('assets/logo.png'),
                       radius: 35,
                     ),
                     SizedBox(height: 48.0),
